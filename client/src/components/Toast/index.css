@@ -1,0 +1,10 @@
+.custom-toast {
+  transform: translateX(220px);
+  animation: translate 0.4s ease-in-out forwards;
+}
+
+@keyframes translate {
+  100% {
+    transform: translateX(0px);
+  }
+}
