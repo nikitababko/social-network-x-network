@@ -1,6 +1,8 @@
 import { GLOBALTYPES } from './globalTypes';
 import { postDataAPI } from 'utils/fetchData';
 
+import validation from 'utils/validation';
+
 export const login = (data) => async (dispatch) => {
   try {
     dispatch({
@@ -67,5 +69,47 @@ export const refreshToken = () => async (dispatch) => {
         },
       });
     }
+  }
+};
+
+export const register = (data) => async (dispatch) => {
+  const check = validation(data);
+  if (check.errLength > 0) {
+    return dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: check.errorMessage,
+    });
+  }
+
+  try {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        loading: true,
+      },
+    });
+    const res = await postDataAPI('register', data);
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {
+        token: res.data.access_token,
+        user: res.data.user,
+      },
+    });
+
+    localStorage.setItem('firstLogin', true);
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        success: res.data.message,
+      },
+    });
+  } catch (error) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        error: error.response.data.message,
+      },
+    });
   }
 };
