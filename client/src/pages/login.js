@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { login } from '../redux/actions/authAction';
 
@@ -16,6 +16,8 @@ const Login = () => {
   const [typePass, setTypePass] = useState(false);
 
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { auth } = useSelector((state) => state);
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
@@ -26,6 +28,10 @@ const Login = () => {
     e.preventDefault();
     dispatch(login(userData));
   };
+
+  useEffect(() => {
+    if (auth.token) history.push('/');
+  }, [auth.token, history]);
 
   return (
     <div className="auth_page">
