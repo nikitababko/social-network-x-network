@@ -1,7 +1,122 @@
 .header {
+  width: 100%;
+  min-height: 70px;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  box-shadow: 0 0 10px #ddd;
+
   .navbar {
-    .avatar {
-      filter: invert(1);
+    width: 100%;
+    height: 100%;
+
+    .logo {
+      h1 {
+        font-size: 2rem;
+      }
+    }
+
+    .menu {
+      .material-icons {
+        font-size: 30px;
+      }
+
+      .dropdown-menu {
+        position: absolute;
+        left: inherit;
+        right: 0;
+      }
+
+      label {
+        cursor: pointer;
+      }
+    }
+
+    .search-form {
+      position: relative;
+
+      #search {
+        background-color: #fafafa;
+        border: 1px solid #ddd;
+        min-width: 250px;
+        width: 100%;
+        outline: none;
+        text-indent: 3px;
+        border-radius: 3px;
+      }
+
+      &__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        font-size: 12px;
+        pointer-events: none;
+
+        .material-icons {
+          transform: translateY(3px);
+          font-size: 14px;
+        }
+      }
+
+      &__close {
+        position: absolute;
+        top: 0;
+        right: 5px;
+        cursor: pointer;
+        font-weight: 900;
+        color: crimson;
+      }
+
+      .users {
+        position: absolute;
+        width: 100%;
+        min-width: 250px;
+        max-height: calc(100vh - 150px);
+        margin-top: 3px;
+        overflow: auto;
+        background-color: #fafafa;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    .navbar {
+      .search-form {
+        width: 100%;
+      }
+
+      .logo {
+        margin: auto;
+
+        h1 {
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .menu {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      box-shadow: 0 0 10px #ddd;
+      z-index: 2;
+
+      .navbar-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .dropdown-menu {
+        bottom: 100%;
+        top: auto;
+      }
     }
   }
 }

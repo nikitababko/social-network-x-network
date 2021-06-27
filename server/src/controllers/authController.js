@@ -186,7 +186,7 @@ const authController = {
 };
 
 const createAccessToken = (payload) => {
-  return jwt.sign(payload, process.env.ACCESSS_TOKEN_SECRET, {
+  return jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: '1d',
   });
 };

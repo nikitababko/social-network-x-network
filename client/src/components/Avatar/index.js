@@ -1,7 +1,9 @@
 import React from 'react';
 
-const index = ({ auth }) => {
-  return <img src={auth.user.avatar} alt="Avatar" className="avatar" />;
+import './index.scss';
+
+const index = ({ src, size }) => {
+  return <img src={src} alt="Avatar" className={size} />;
 };
 
 export default index;

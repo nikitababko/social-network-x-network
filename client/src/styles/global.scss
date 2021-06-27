@@ -19,7 +19,7 @@ code {
 }
 
 #theme:checked ~ .App {
-  filter: invert();
+  filter: invert(1);
 }
 
 .App {
@@ -38,10 +38,4 @@ img {
   object-fit: cover;
 }
 
-.avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-}
-
-@import url('./styles/auth.css');
+@import './auth.scss';
