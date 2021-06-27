@@ -173,7 +173,7 @@ const authController = {
 
           res.json({
             access_token,
-            existsUser,
+            user: existsUser,
           });
         }
       );
