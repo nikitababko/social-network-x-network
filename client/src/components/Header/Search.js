@@ -1,32 +1,38 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { getDataAPI } from 'utils/fetchData';
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
 import UserCard from '../UserCard';
+import LoadIcon from 'images/loading.gif';
 
 const Search = () => {
   const [search, setSearch] = useState('');
   const [users, setUsers] = useState([]);
+  const [load, setLoad] = useState(false);
 
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (search) {
-      getDataAPI(`search?username=${search}`, auth.token)
-        .then((res) => setUsers(res.data.users))
-        .catch((error) => {
-          dispatch({
-            type: GLOBALTYPES.ALERT,
-            payload: error.response.data.msg,
-          });
-        });
-    } else {
-      setUsers([]);
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!search) return;
+
+    try {
+      setLoad(true);
+      const res = await getDataAPI(
+        `search?username=${search}`,
+        auth.token
+      );
+      setUsers(res.data.users);
+      setLoad(false);
+    } catch (error) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: error.response.data.msg,
+      });
     }
-  }, [search, auth.token, dispatch]);
+  };
 
   const handleClose = () => {
     setSearch('');
@@ -34,7 +40,7 @@ const Search = () => {
   };
 
   return (
-    <form className="search-form">
+    <form className="search-form" onSubmit={handleSearch}>
       <input
         type="text"
         name="search"
@@ -61,16 +67,21 @@ const Search = () => {
         &times;
       </div>
 
+      <button type="submit" style={{ display: 'none' }}>
+        Search
+      </button>
+
+      {load && <img className="loading" src={LoadIcon} alt="Loading..." />}
+
       <div className="users">
         {search &&
           users.map((user) => (
-            <Link
+            <UserCard
               key={user._id}
-              to={`/profile/${user._id}`}
-              onClick={handleClose}
-            >
-              <UserCard user={user} border="border" />
-            </Link>
+              user={user}
+              border="border"
+              handleClose={handleClose}
+            />
           ))}
       </div>
     </form>

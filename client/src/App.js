@@ -1,10 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import PageRender from './customRouter/PageRender';
 import Home from './pages/home';

@@ -58,7 +58,7 @@ const authController = {
       await newUser.save();
 
       res.json({
-        message: 'Register Success! Please activate your email to start.',
+        message: 'Register Success!',
         access_token,
         user: {
           ...newUser._doc,

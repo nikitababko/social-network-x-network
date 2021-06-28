@@ -70,6 +70,15 @@
         color: crimson;
       }
 
+      .loading {
+        position: absolute;
+        top: 50%;
+        right: 5px;
+        width: 15px;
+        height: 15px;
+        transform: translateY(-50%);
+      }
+
       .users {
         position: absolute;
         width: 100%;

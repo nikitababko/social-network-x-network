@@ -16,6 +16,23 @@ const userController = {
       });
     }
   },
+
+  getUser: async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id).select('-password');
+      if (!user) {
+        return res.status(400).json({
+          message: 'User does not exist.',
+        });
+      }
+
+      res.json({ user });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
 };
 
 module.exports = userController;
