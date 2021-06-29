@@ -26,3 +26,8 @@
 
 - Added validation for image upload
 - Added modal-EditProfile
+
+### [ecb9d74](https://github.com/nikitababko/social-network-x-network/commit/ac87c3eb7869dcaba73353bce6b48a82ca789614)
+
+- Added logic for image upload (used 'cloudinary' on client)
+- Added logic for user info update
