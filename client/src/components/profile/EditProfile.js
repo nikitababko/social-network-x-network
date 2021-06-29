@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { checkImage } from 'utils/imageUpload';
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
+import { updateProfileUser } from 'redux/actions/profileAction';
 
 import './EditProfile.scss';
 
@@ -13,9 +14,10 @@ const EditProfile = ({ setOnEdit }) => {
     address: '',
     website: '',
     story: '',
+    gender: '',
   };
   const [userData, setUserData] = useState(initialState);
-  const { fullname, mobile, address, website, story } = userData;
+  const { fullname, mobile, address, website, story, gender } = userData;
 
   const [avatar, setAvatar] = useState('');
   const dispatch = useDispatch();
@@ -33,7 +35,7 @@ const EditProfile = ({ setOnEdit }) => {
   const changeAvatar = (e) => {
     const file = e.target.files[0];
     const error = checkImage(file);
-    console.log(error);
+
     if (error) {
       return dispatch({
         type: GLOBALTYPES.ALERT,
@@ -48,6 +50,11 @@ const EditProfile = ({ setOnEdit }) => {
     setUserData({ ...userData, [name]: value });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(updateProfileUser({ userData, avatar, auth }));
+  };
+
   return (
     <div className="edit-profile">
       <button
@@ -57,7 +64,7 @@ const EditProfile = ({ setOnEdit }) => {
         Close
       </button>
 
-      <form className="edit-profile__form">
+      <form className="edit-profile__form" onSubmit={handleSubmit}>
         <div className="edit-profile__form-avatar">
           <img
             src={avatar ? URL.createObjectURL(avatar) : auth.user.avatar}
@@ -158,7 +165,7 @@ const EditProfile = ({ setOnEdit }) => {
             />
 
             <small className="text-danger d-block text-right">
-              {fullname.length}/200
+              {story.length}/200
             </small>
           </div>
         </div>
@@ -170,6 +177,7 @@ const EditProfile = ({ setOnEdit }) => {
             id="gender"
             className="custom-select text-capitalize"
             onChange={handleInput}
+            value={gender}
           >
             <option value="male">Male</option>
             <option value="female">Female</option>

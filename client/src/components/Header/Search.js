@@ -49,6 +49,7 @@ const Search = () => {
           setSearch(e.target.value.toLowerCase().replace(/ /g, ''))
         }
         id="search"
+        title="Enter to search"
       />
 
       <div
@@ -56,7 +57,7 @@ const Search = () => {
         style={{ opacity: search ? 0 : 0.3 }}
       >
         <span className="material-icons">search</span>
-        <span>Search</span>
+        <span>Enter to search</span>
       </div>
 
       <div

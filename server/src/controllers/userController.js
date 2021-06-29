@@ -33,6 +33,39 @@ const userController = {
       });
     }
   },
+
+  updateUser: async (req, res) => {
+    try {
+      const { avatar, fullname, mobile, address, story, website, gender } =
+        req.body;
+      if (!fullname) {
+        return res.status(400).json({
+          message: 'Please add your full name',
+        });
+      }
+
+      await User.findByIdAndUpdate(
+        { _id: req.user._id },
+        {
+          avatar,
+          fullname,
+          mobile,
+          address,
+          story,
+          website,
+          gender,
+        }
+      );
+
+      res.json({
+        message: 'Update success!',
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
 };
 
 module.exports = userController;

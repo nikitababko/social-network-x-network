@@ -56,13 +56,14 @@ const Info = () => {
             </div>
 
             <h6>
-              {user.fullname} {user.mobile}
+              {user.fullname} <p className="text-danger">+{user.mobile}</p>
             </h6>
             <p className="m-0">{user.address}</p>
-            <h6>{user.email}</h6>
+            <h6 className="m-0">{user.email}</h6>
             <a href={user.website} target="_blank" rel="noreferrer">
               {user.website}
             </a>
+            <p>{user.story}</p>
           </div>
 
           {onEdit && <EditProfile setOnEdit={setOnEdit} />}
