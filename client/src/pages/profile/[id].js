@@ -13,7 +13,11 @@ const Profile = () => {
   return (
     <div className="profile">
       {profile.loading ? (
-        <img src={LoadIcon} alt="Loading..." />
+        <img
+          className="d-block mx-auto my-4"
+          src={LoadIcon}
+          alt="Loading..."
+        />
       ) : (
         <Info />
       )}

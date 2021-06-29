@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
-import { Avatar } from 'components';
+import { Avatar, FollowButton } from 'components';
 import { getProfileUsers } from 'redux/actions/profileAction';
+import EditProfile from './EditProfile';
 
 const Info = () => {
   const { id } = useParams();
@@ -11,7 +12,8 @@ const Info = () => {
   const dispatch = useDispatch();
 
   const [userData, setUserData] = useState([]);
-  console.log(userData);
+  const [onEdit, setOnEdit] = useState(false);
+
   useEffect(() => {
     if (id === auth.user._id) {
       setUserData([auth.user]);
@@ -31,9 +33,16 @@ const Info = () => {
           <div className="info__content">
             <div className="info__content-title">
               <h2>{user.username}</h2>
-              <button className="btn btn-outline-info">
-                Edit profile
-              </button>
+              {user._id === auth.user._id ? (
+                <button
+                  className="btn btn-outline-info"
+                  onClick={() => setOnEdit(true)}
+                >
+                  Edit profile
+                </button>
+              ) : (
+                <FollowButton />
+              )}
             </div>
 
             <div className="follow-button">
@@ -55,6 +64,8 @@ const Info = () => {
               {user.website}
             </a>
           </div>
+
+          {onEdit && <EditProfile setOnEdit={setOnEdit} />}
         </div>
       ))}
     </div>
