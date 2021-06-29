@@ -19,3 +19,10 @@
 
 - Change ability: search users by username (used onClick 'enter')
 - Added user profile info
+
+## 2021-06-29
+
+### [c0e56ed](https://github.com/nikitababko/social-network-x-network/commit/596763f5d029ebda6b1bccf6c8c5a5febb1bd729)
+
+- Added validation for image upload
+- Added modal-EditProfile
