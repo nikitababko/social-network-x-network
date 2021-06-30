@@ -5,6 +5,8 @@ import { useParams } from 'react-router-dom';
 import { Avatar, FollowButton } from 'components';
 import { getProfileUsers } from 'redux/actions/profileAction';
 import EditProfile from './EditProfile';
+import Followers from './Followers';
+import Following from './Following';
 
 const Info = () => {
   const { id } = useParams();
@@ -13,6 +15,9 @@ const Info = () => {
 
   const [userData, setUserData] = useState([]);
   const [onEdit, setOnEdit] = useState(false);
+
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowing, setShowFollowing] = useState(false);
 
   useEffect(() => {
     if (id === auth.user._id) {
@@ -23,6 +28,14 @@ const Info = () => {
       setUserData(newData);
     }
   }, [id, auth, dispatch, profile.users]);
+
+  const handleShowFollowers = () => {
+    setShowFollowers(true);
+  };
+
+  const handleShowFollowing = () => {
+    setShowFollowing(true);
+  };
 
   return (
     <div className="info">
@@ -41,16 +54,16 @@ const Info = () => {
                   Edit profile
                 </button>
               ) : (
-                <FollowButton />
+                <FollowButton user={user} />
               )}
             </div>
 
             <div className="follow-button">
-              <span className="mr-4">
+              <span className="mr-4" onClick={handleShowFollowers}>
                 {user.followers.length} Followers
               </span>
 
-              <span className="ml-4">
+              <span className="ml-4" onClick={handleShowFollowing}>
                 {user.following.length} Following
               </span>
             </div>
@@ -67,6 +80,20 @@ const Info = () => {
           </div>
 
           {onEdit && <EditProfile setOnEdit={setOnEdit} />}
+
+          {showFollowers && (
+            <Followers
+              users={user.followers}
+              setShowFollowers={setShowFollowers}
+            />
+          )}
+
+          {showFollowing && (
+            <Following
+              users={user.following}
+              setShowFollowing={setShowFollowing}
+            />
+          )}
         </div>
       ))}
     </div>
