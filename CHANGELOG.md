@@ -1,3 +1,10 @@
+## 2021-06-30
+
+### [29700da](https://github.com/nikitababko/social-network-x-network/commit/63f071b30e7f7b0c115922ceb46628213e3a4a4b)
+
+- Added ability: follow and unfollow
+- Added list of follow and unfollow
+
 ## 2021-06-29
 
 ### [c0e56ed](https://github.com/nikitababko/social-network-x-network/commit/596763f5d029ebda6b1bccf6c8c5a5febb1bd729)
