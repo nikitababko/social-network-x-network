@@ -1,0 +1,122 @@
+.status-modal {
+  $status-modal: &;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 4;
+
+  width: 100%;
+  height: 100vh;
+  overflow: auto;
+
+  background-color: #0008;
+
+  form {
+    width: 100%;
+    max-width: 450px;
+
+    margin: 30px auto;
+    padding: 20px;
+
+    border-radius: 5px;
+
+    background-color: #fff;
+
+    #{$status-modal}__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      margin-bottom: 10px;
+      transform: translateY(-13px);
+
+      border-bottom: 1px solid #ddd;
+
+      span {
+        transform: translateY(-7px);
+
+        font-size: 2rem;
+        font-weight: 900;
+        cursor: pointer;
+      }
+    }
+
+    #{$status-modal}__body {
+      textarea {
+        width: 100%;
+        min-height: 150px;
+        border: none;
+        outline: none;
+        resize: none;
+      }
+
+      .show-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        grid-gap: 10px;
+        place-items: center;
+        padding: 10px 0;
+        width: 100%;
+        max-height: 270px;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        #file-image {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          margin: 10px 0;
+
+          img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+          }
+
+          span {
+            position: absolute;
+            top: -1px;
+            right: -2px;
+            z-index: 4;
+            padding: 3px 7px;
+
+            border: 1px solid crimson;
+            border-radius: 50%;
+
+            font-size: 10px;
+            font-weight: bolder;
+            background-color: #fff;
+            color: crimson;
+
+            cursor: pointer;
+          }
+        }
+      }
+
+      .input-images {
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+
+        i {
+          font-size: 2rem;
+          cursor: pointer;
+        }
+
+        .file-upload {
+          position: relative;
+          margin: 0 10px;
+          overflow: hidden;
+
+          #file {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+          }
+        }
+      }
+    }
+  }
+}

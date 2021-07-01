@@ -6,12 +6,12 @@ import PageRender from './customRouter/PageRender';
 import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
-import { Alert, Header } from './components';
+import { Alert, Header, StatusModal } from './components';
 import { refreshToken } from './redux/actions/authAction';
 import PrivateRouter from 'customRouter/PrivateRouter';
 
 const App = () => {
-  const { auth } = useSelector((state) => state);
+  const { auth, status } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,6 +25,7 @@ const App = () => {
       <div className="App">
         <div className="main">
           {auth.token && <Header />}
+          {status && <StatusModal />}
 
           <Route exact path="/" component={auth.token ? Home : Login} />
 
