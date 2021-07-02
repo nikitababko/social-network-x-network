@@ -23,7 +23,24 @@ const postController = {
     } catch (error) {
       return res.status(500).json({
         message: error.message,
-        newPost,
+      });
+    }
+  },
+
+  getPost: async (req, res) => {
+    try {
+      const posts = await Post.find({
+        user: [...req.user.following, req.user._id],
+      }).populate('user likes', 'avatar username fullname');
+
+      res.json({
+        message: 'Success!',
+        result: posts.length,
+        posts,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
       });
     }
   },

@@ -9,6 +9,7 @@ import Register from './pages/register';
 import { Alert, Header, StatusModal } from './components';
 import { refreshToken } from './redux/actions/authAction';
 import PrivateRouter from 'customRouter/PrivateRouter';
+import { getPosts } from 'redux/actions/postAction';
 
 const App = () => {
   const { auth, status } = useSelector((state) => state);
@@ -17,6 +18,10 @@ const App = () => {
   useEffect(() => {
     dispatch(refreshToken());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (auth.token) dispatch(getPosts(auth.token));
+  }, [dispatch, auth.token]);
 
   return (
     <Router>

@@ -1,0 +1,30 @@
+.posts {
+  .card {
+    box-shadow: 0 0 10px #ddd;
+
+    &__header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 25px;
+      cursor: pointer;
+
+      &-name {
+        transform: translateY(3px);
+      }
+
+      .dropdown {
+        &-menu {
+          position: absolute;
+          right: 0;
+          left: inherit !important;
+        }
+
+        &-item {
+          display: flex;
+          margin: 5px 0;
+        }
+      }
+    }
+  }
+}
