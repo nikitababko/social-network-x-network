@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
+import { createPost } from 'redux/actions/postAction';
 
 import './index.scss';
 
@@ -64,7 +65,7 @@ const StatusModal = () => {
 
   const handleStream = () => {
     setStream(true);
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia()) {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices
         .getUserMedia({ video: true })
         .then((mediaStream) => {
@@ -77,9 +78,47 @@ const StatusModal = () => {
     }
   };
 
+  const handleCapture = () => {
+    const width = videoRef.current.clientWidth;
+    const height = videoRef.current.clientHeight;
+
+    canvasRef.current.setAttribute('width', width);
+    canvasRef.current.setAttribute('height', height);
+
+    const ctx = canvasRef.current.getContext('2d');
+    ctx.drawImage(videoRef.current, 0, 0, width, height);
+    let URL = canvasRef.current.toDataURL();
+    setImages([...images, { camera: URL }]);
+  };
+
+  const handleStopStream = () => {
+    track.stop();
+    setStream(false);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (images.length === 0) {
+      return dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: 'Please add your photo.' },
+      });
+    }
+
+    dispatch(createPost({ content, images, auth }));
+
+    setContent('');
+    setImages([]);
+    if (track) track.stop();
+    dispatch({
+      type: GLOBALTYPES.STATUS,
+      payload: false,
+    });
+  };
+
   return (
     <div className="status-modal">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="status-modal__header">
           <h5 className="m-0">Create Post</h5>
           <span onClick={handleClose}>&times;</span>
@@ -97,7 +136,11 @@ const StatusModal = () => {
             {images.map((image, index) => (
               <div key={index} id="file-image">
                 <img
-                  src={URL.createObjectURL(image)}
+                  src={
+                    image.camera
+                      ? image.camera
+                      : URL.createObjectURL(image)
+                  }
                   alt="Image"
                   className="img-thumbnail"
                   style={{ filter: theme ? 'invert(1)' : 'invert(0)' }}
@@ -108,7 +151,7 @@ const StatusModal = () => {
           </div>
 
           {stream && (
-            <div className="stream">
+            <div className="stream position-relative">
               <video
                 autoPlay
                 muted
@@ -118,29 +161,37 @@ const StatusModal = () => {
                 style={{ filter: theme ? 'invert(1)' : 'invert(0)' }}
               />
 
-              <span>&times;</span>
-              <canvas ref={canvasRef} />
+              <span onClick={handleStopStream}>&times;</span>
+              <canvas ref={canvasRef} style={{ display: 'none' }} />
             </div>
           )}
 
           <div className="input-images">
-            <i className="fas fa-camera" onClick={handleStream} />
+            {stream ? (
+              <i className="fas fa-camera" onClick={handleCapture} />
+            ) : (
+              <>
+                <i className="fas fa-camera" onClick={handleStream} />
 
-            <div className="file-upload">
-              <i className="fas fa-image" />
-              <input
-                type="file"
-                name="file"
-                id="file"
-                multiple
-                accept="image/*"
-                onChange={handleChangeInput}
-              />
-            </div>
+                <div className="file-upload">
+                  <i className="fas fa-image" />
+                  <input
+                    type="file"
+                    name="file"
+                    id="file"
+                    multiple
+                    accept="image/*"
+                    onChange={handleChangeInput}
+                  />
+                </div>
+              </>
+            )}
           </div>
 
           <div className="status-modal__footer">
-            <button className="btn btn-secondary w-100">Post</button>
+            <button className="btn btn-secondary w-100" type="submit">
+              Post
+            </button>
           </div>
         </div>
       </form>
