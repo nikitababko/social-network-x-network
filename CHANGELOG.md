@@ -1,3 +1,10 @@
+## 2021-07-02
+
+### [bb19964](https://github.com/nikitababko/social-network-x-network/commit/bb19964ac26fb568bbb9668bd3ed78c65d1b0dcb)
+
+- Added ability: added post with text, photo from camera or image from PC
+
+
 ## 2021-06-30
 
 ### [29700da](https://github.com/nikitababko/social-network-x-network/commit/63f071b30e7f7b0c115922ceb46628213e3a4a4b)
