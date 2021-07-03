@@ -4,6 +4,9 @@
 
 - Added ability: added post with text, photo from camera or image from PC
 
+### [4efe84a](https://github.com/nikitababko/social-network-x-network/commit/4efe84a9c84480f9554c4ef7ee57544779675a84)
+
+- Added opportunity: get posts
 
 ## 2021-06-30
 
