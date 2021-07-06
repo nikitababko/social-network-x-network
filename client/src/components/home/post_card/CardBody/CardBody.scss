@@ -1,0 +1,16 @@
+.posts {
+  .card-body {
+    padding: 0;
+
+    &__content {
+      padding: 0 25px;
+      margin-top: -10px;
+      margin-bottom: 10px;
+
+      .read-more {
+        color: crimson;
+        cursor: pointer;
+      }
+    }
+  }
+}

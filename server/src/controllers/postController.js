@@ -31,12 +31,41 @@ const postController = {
     try {
       const posts = await Post.find({
         user: [...req.user.following, req.user._id],
-      }).populate('user likes', 'avatar username fullname');
+      })
+        .sort('-createdAt')
+        .populate('user likes', 'avatar username fullname');
 
       res.json({
         message: 'Success!',
         result: posts.length,
         posts,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  updatePost: async (req, res) => {
+    try {
+      const { content, images } = req.body;
+
+      const post = await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          content,
+          images,
+        }
+      ).populate('user likes', 'avatar username fullname');
+
+      res.json({
+        message: 'Update post!',
+        newPost: {
+          ...post._doc,
+          content,
+          images,
+        },
       });
     } catch (error) {
       return res.status(500).json({

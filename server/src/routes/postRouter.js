@@ -8,4 +8,6 @@ router
   .post(auth, postController.createPost)
   .get(auth, postController.getPost);
 
+router.route('/post/:id').patch(auth, postController.updatePost);
+
 module.exports = router;

@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import CardBody from './post_card/CardBody';
-import CardFooter from './post_card/CardFooter';
-import CardHeader from './post_card/CardHeader';
+import CardBody from '../CardBody/CardBody';
+import CardFooter from '../CardFooter/CardFooter';
+import CardHeader from '../CardHeader';
 
 import './Posts.scss';
 

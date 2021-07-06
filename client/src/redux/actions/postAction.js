@@ -1,11 +1,12 @@
 import { GLOBALTYPES } from './globalTypes';
 import { imageUpload } from 'utils/imageUpload';
-import { getDataAPI, postDataAPI } from 'utils/fetchData';
+import { getDataAPI, patchDataAPI, postDataAPI } from 'utils/fetchData';
 
 export const POST_TYPES = {
   CREATE_POST: 'CREATE_POST',
   LOADING_POST: 'LOADING_POST',
   GET_POSTS: 'GET_POSTS',
+  UPDATE_POST: 'UPDATE_POST',
 };
 
 export const createPost =
@@ -31,7 +32,7 @@ export const createPost =
 
       dispatch({
         type: POST_TYPES.CREATE_POST,
-        payload: { payload: res.data.newPost },
+        payload: { ...res.data.newPost, user: auth.user },
       });
 
       dispatch({
@@ -74,3 +75,51 @@ export const getPosts = (token) => async (dispatch) => {
     });
   }
 };
+
+export const updatePost =
+  ({ content, images, auth, status }) =>
+  async (dispatch) => {
+    let media = [];
+    const imageNewUrl = images.filter((image) => !image.url);
+    const imageOldwUrl = images.filter((image) => image.url);
+
+    if (
+      status.content === content &&
+      imageNewUrl.length === 0 &&
+      imageOldwUrl.length === status.images.length
+    )
+      return;
+
+    try {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { loading: true },
+      });
+
+      if (imageNewUrl.length > 0) {
+        media = await imageUpload(imageNewUrl);
+      }
+      const res = await patchDataAPI(
+        `post/${status._id}`,
+        { content, images: [...imageOldwUrl, ...media] },
+        auth.token
+      );
+
+      dispatch({
+        type: POST_TYPES.UPDATE_POST,
+        payload: res.data.newPost,
+      });
+
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { success: res.data.message },
+      });
+    } catch (error) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          error: error.response.data.message,
+        },
+      });
+    }
+  };

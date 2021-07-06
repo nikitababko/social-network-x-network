@@ -1,13 +1,13 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
-import { createPost } from 'redux/actions/postAction';
+import { createPost, updatePost } from 'redux/actions/postAction';
 
 import './index.scss';
 
 const StatusModal = () => {
-  const { auth, theme } = useSelector((state) => state);
+  const { auth, theme, status } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [content, setContent] = useState('');
@@ -105,7 +105,11 @@ const StatusModal = () => {
       });
     }
 
-    dispatch(createPost({ content, images, auth }));
+    if (status.onEdit) {
+      dispatch(updatePost({ content, images, auth, status }));
+    } else {
+      dispatch(createPost({ content, images, auth }));
+    }
 
     setContent('');
     setImages([]);
@@ -115,6 +119,13 @@ const StatusModal = () => {
       payload: false,
     });
   };
+
+  useEffect(() => {
+    if (status.onEdit) {
+      setContent(status.content);
+      setImages(status.images);
+    }
+  }, []);
 
   return (
     <div className="status-modal">
@@ -139,6 +150,8 @@ const StatusModal = () => {
                   src={
                     image.camera
                       ? image.camera
+                      : image.url
+                      ? image.url
                       : URL.createObjectURL(image)
                   }
                   alt="Image"
