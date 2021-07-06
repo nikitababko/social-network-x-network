@@ -1,3 +1,9 @@
+## 2021-07-06
+
+### [0c580e2](https://github.com/nikitababko/social-network-x-network/commit/0c580e233f10dbb2635cfc3fd6b64205c81faf59)
+
+- Added ability: update posts
+
 ## 2021-07-02
 
 ### [bb19964](https://github.com/nikitababko/social-network-x-network/commit/bb19964ac26fb568bbb9668bd3ed78c65d1b0dcb)
