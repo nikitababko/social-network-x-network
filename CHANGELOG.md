@@ -1,3 +1,9 @@
+## 2021-07-07
+
+### [ac00b95](https://github.com/nikitababko/social-network-x-network/commit/ac00b95bed1b4a34275af1e6405d5a5d9d87010c)
+
+- Added ability: like post
+
 ## 2021-07-06
 
 ### [0c580e2](https://github.com/nikitababko/social-network-x-network/commit/0c580e233f10dbb2635cfc3fd6b64205c81faf59)
