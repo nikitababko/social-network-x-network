@@ -40,8 +40,8 @@ const CardFooter = ({ post }) => {
   };
 
   return (
-    <div className="card-footer">
-      <div className="card-footer__menu">
+    <div className="card_footer">
+      <div className="card_footer__menu">
         <div>
           <LikeButton
             isLike={isLike}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import Posts from 'components/home/post_card/Posts/Posts';
+import Posts from 'components/home/Posts/Posts';
 import Status from 'components/home/Status/Status';
 import LoadIcon from 'images/loading.gif';
 

@@ -125,7 +125,7 @@ const StatusModal = () => {
       setContent(status.content);
       setImages(status.images);
     }
-  }, []);
+  }, [status]);
 
   return (
     <div className="status-modal">

@@ -1,4 +1,4 @@
-const Post = require('../models/postModel');
+const Posts = require('../models/postModel');
 
 const postController = {
   createPost: async (req, res) => {
@@ -29,11 +29,18 @@ const postController = {
 
   getPost: async (req, res) => {
     try {
-      const posts = await Post.find({
+      const posts = await Posts.find({
         user: [...req.user.following, req.user._id],
       })
         .sort('-createdAt')
-        .populate('user likes', 'avatar username fullname');
+        .populate('user likes', 'avatar username fullname')
+        .populate({
+          path: 'comments',
+          populate: {
+            path: 'user likes',
+            select: '-password',
+          },
+        });
 
       res.json({
         message: 'Success!',
@@ -51,7 +58,7 @@ const postController = {
     try {
       const { content, images } = req.body;
 
-      const post = await Post.findOneAndUpdate(
+      const post = await Posts.findOneAndUpdate(
         { _id: req.params.id },
         {
           content,
@@ -76,7 +83,7 @@ const postController = {
 
   likePost: async (req, res) => {
     try {
-      const post = await Post.find({
+      const post = await Posts.find({
         _id: req.params.id,
         likes: req.user._id,
       });
@@ -87,7 +94,7 @@ const postController = {
         });
       }
 
-      await Post.findOneAndUpdate(
+      await Posts.findOneAndUpdate(
         { _id: req.params.id },
         {
           $push: { likes: req.user._id },
@@ -105,7 +112,7 @@ const postController = {
 
   unLikePost: async (req, res) => {
     try {
-      await Post.findOneAndUpdate(
+      await Posts.findOneAndUpdate(
         { _id: req.params.id },
         {
           $pull: { likes: req.user._id },

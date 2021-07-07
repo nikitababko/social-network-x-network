@@ -1,9 +1,9 @@
-const User = require('../models/userModel');
+const Users = require('../models/userModel');
 
 const userController = {
   searchUser: async (req, res) => {
     try {
-      const users = await User.find({
+      const users = await Users.find({
         username: { $regex: req.query.username },
       })
         .limit(10)
@@ -19,7 +19,7 @@ const userController = {
 
   getUser: async (req, res) => {
     try {
-      const user = await User.findById(req.params.id)
+      const user = await Users.findById(req.params.id)
         .select('-password')
         .populate('followers following', '-password');
       if (!user) {
@@ -46,7 +46,7 @@ const userController = {
         });
       }
 
-      await User.findByIdAndUpdate(
+      await Users.findByIdAndUpdate(
         { _id: req.user._id },
         {
           avatar,
@@ -71,7 +71,7 @@ const userController = {
 
   follow: async (req, res) => {
     try {
-      const user = await User.find({
+      const user = await Users.find({
         _id: req.params.id,
         followers: req.user._id,
       });
@@ -82,13 +82,13 @@ const userController = {
         });
       }
 
-      await User.findOneAndUpdate(
+      await Users.findOneAndUpdate(
         { _id: req.params.id },
         { $push: { followers: req.user._id } },
         { new: true }
       );
 
-      await User.findOneAndUpdate(
+      await Users.findOneAndUpdate(
         { _id: req.user.id },
         { $push: { following: req.params.id } },
         { new: true }
@@ -104,13 +104,13 @@ const userController = {
 
   unfollow: async (req, res) => {
     try {
-      await User.findOneAndUpdate(
+      await Users.findOneAndUpdate(
         { _id: req.params.id },
         { $pull: { followers: req.user._id } },
         { new: true }
       );
 
-      await User.findOneAndUpdate(
+      await Users.findOneAndUpdate(
         { _id: req.user.id },
         { $pull: { following: req.params.id } },
         { new: true }

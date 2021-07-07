@@ -12,8 +12,8 @@ const CardBody = ({ post }) => {
   };
 
   return (
-    <div className="card-body">
-      <div className="card-body__content">
+    <div className="card_body">
+      <div className="card_body__content">
         <span>
           {post.content.length < 60
             ? post.content

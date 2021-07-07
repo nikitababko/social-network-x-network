@@ -36,7 +36,7 @@ const Info = () => {
     } else {
       dispatch({ type: GLOBALTYPES.MODAL, payload: false });
     }
-  }, [showFollowers, showFollowing, onEdit]);
+  }, [showFollowers, showFollowing, onEdit, dispatch]);
 
   const handleShowFollowers = () => {
     setShowFollowers(true);
