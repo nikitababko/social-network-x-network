@@ -4,6 +4,10 @@
 
 - Added ability: like post
 
+### [50804ed](https://github.com/nikitababko/social-network-x-network/commit/50804edf657f031ea627c5cac2d6123fb2c4cfa9)
+
+- Added ability: create comments
+
 ## 2021-07-06
 
 ### [0c580e2](https://github.com/nikitababko/social-network-x-network/commit/0c580e233f10dbb2635cfc3fd6b64205c81faf59)
