@@ -1,0 +1,46 @@
+.comments {
+  .comment_display {
+    padding: 10px 25px;
+
+    .comment_card {
+      .comment_content {
+        &:hover {
+          .nav-item {
+            opacity: 1;
+          }
+        }
+
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 7px;
+
+        border-radius: 10px;
+        border-top-left-radius: 0;
+
+        background-color: #eee;
+
+        .read-more {
+          cursor: pointer;
+          color: crimson;
+        }
+
+        .nav-item {
+          cursor: pointer;
+          opacity: 0;
+
+          .dropdown-menu {
+            position: absolute;
+            right: 0;
+            left: inherit;
+
+            .dropdown-item {
+              display: flex;
+              margin: 10px 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}

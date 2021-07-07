@@ -12,9 +12,15 @@ export const createComment =
     });
 
     try {
-      // const data = { ...newComment, postId: post._id };
-      // const res = await postDataAPI('comment', data, auth.token);
-      // console.log({ res });
+      const data = { ...newComment, postId: post._id };
+      const res = await postDataAPI('comment', data, auth.token);
+
+      const newData = { ...res.data.newComment, user: auth.user };
+      const newPost = { ...post, comments: [...post.comments, newData] };
+      dispatch({
+        type: POST_TYPES.UPDATE_POST,
+        payload: newPost,
+      });
     } catch (error) {
       dispatch({
         type: GLOBALTYPES.ALERT,
