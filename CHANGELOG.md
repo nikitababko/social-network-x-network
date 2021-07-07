@@ -8,6 +8,10 @@
 
 - Added ability: create comments
 
+### [42a9a40](https://github.com/nikitababko/social-network-x-network/commit/42a9a40e32bd7e50a4facaa77a83eb8b8087fc6b)
+
+- Added ability: comments display
+
 ## 2021-07-06
 
 ### [0c580e2](https://github.com/nikitababko/social-network-x-network/commit/0c580e233f10dbb2635cfc3fd6b64205c81faf59)
