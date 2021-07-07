@@ -1,16 +1,54 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Send from 'images/send.svg';
+import LikeButton from 'components/LikeButton';
+import { likePost, unLikePost } from 'redux/actions/postAction';
 
 import './CardFooter.scss';
 
 const CardFooter = ({ post }) => {
+  const [isLike, setIsLike] = useState(false);
+  const [loadLike, setLoadLike] = useState(false);
+
+  const { auth } = useSelector((state) => state);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (post.likes.find((like) => like._id === auth.user._id)) {
+      setIsLike(true);
+    }
+  }, [post.likes, auth.user._id]);
+
+  const handleLike = async () => {
+    if (loadLike) return;
+    setIsLike(true);
+
+    setLoadLike(true);
+    await dispatch(likePost({ post, auth }));
+    setLoadLike(false);
+  };
+
+  const handleUnLike = async () => {
+    if (loadLike) return;
+    setIsLike(false);
+
+    setLoadLike(true);
+    await dispatch(unLikePost({ post, auth }));
+    setLoadLike(false);
+  };
+
   return (
     <div className="card-footer">
       <div className="card-footer__menu">
         <div>
-          <i className="far fa-heart" />
+          <LikeButton
+            isLike={isLike}
+            handleLike={handleLike}
+            handleUnLike={handleUnLike}
+          />
+
           <Link to={`/post/${post._id}`} className="text-dark">
             <i className="far fa-comment" />
           </Link>
@@ -22,8 +60,8 @@ const CardFooter = ({ post }) => {
       </div>
 
       <div className="d-flex justify-content-between">
-        <h6 style={{ padding: '0 34px', cursor: 'pointer' }}>
-          {post.likes.length}
+        <h6 style={{ padding: '0 25px', cursor: 'pointer' }}>
+          {post.likes.length} likes
         </h6>
         <h6 style={{ padding: '0 25px', cursor: 'pointer' }}>
           {post.comments.length} comments

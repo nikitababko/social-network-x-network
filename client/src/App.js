@@ -12,7 +12,7 @@ import PrivateRouter from 'customRouter/PrivateRouter';
 import { getPosts } from 'redux/actions/postAction';
 
 const App = () => {
-  const { auth, status } = useSelector((state) => state);
+  const { auth, status, modal } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const App = () => {
     <Router>
       <Alert />
       <input type="checkbox" id="theme" />
-      <div className="App">
+      <div className={`App ${(status || modal) && 'mode'}`}>
         <div className="main">
           {auth.token && <Header />}
           {status && <StatusModal />}

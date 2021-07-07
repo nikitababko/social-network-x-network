@@ -73,6 +73,53 @@ const postController = {
       });
     }
   },
+
+  likePost: async (req, res) => {
+    try {
+      const post = await Post.find({
+        _id: req.params.id,
+        likes: req.user._id,
+      });
+      console.log(post);
+      if (post.length > 0) {
+        return res.status(400).json({
+          message: 'You liked this post.',
+        });
+      }
+
+      await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $push: { likes: req.user._id },
+        },
+        { new: true }
+      );
+
+      res.json({ message: 'Liked post!' });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  unLikePost: async (req, res) => {
+    try {
+      await Post.findOneAndUpdate(
+        { _id: req.params.id },
+        {
+          $pull: { likes: req.user._id },
+        },
+        { new: true }
+      );
+
+      res.json({ message: 'UnLiked post!' });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
 };
 
 module.exports = postController;
