@@ -40,6 +40,15 @@
             }
           }
         }
+
+        .flex-fill {
+          textarea {
+            width: 100%;
+            border: none;
+            outline: none;
+            resize: none;
+          }
+        }
       }
     }
   }

@@ -87,7 +87,7 @@ const postController = {
         _id: req.params.id,
         likes: req.user._id,
       });
-      console.log(post);
+
       if (post.length > 0) {
         return res.status(400).json({
           message: 'You liked this post.',
