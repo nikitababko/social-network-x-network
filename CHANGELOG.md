@@ -6,6 +6,10 @@
 - Added ability: show/hide reply comments
 - Added ability: comment tag( whose comment was answered )
 
+### [420f652](https://github.com/nikitababko/social-network-x-network/commit/420f65212e71489b3b9bf8aa199b2a087838986c)
+
+- Added ability: get own post in owner profile
+
 ## 2021-07-07
 
 ### [ac00b95](https://github.com/nikitababko/social-network-x-network/commit/ac00b95bed1b4a34275af1e6405d5a5d9d87010c)
