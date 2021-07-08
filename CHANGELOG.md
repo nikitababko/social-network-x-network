@@ -1,3 +1,11 @@
+## 2021-07-08
+
+### [88bb572](https://github.com/nikitababko/social-network-x-network/commit/88bb57252ff88c850442fddf2a6ea4844d4ddf5e)
+
+- Added ability: reply comments
+- Added ability: show/hide reply comments
+- Added ability: comment tag( whose comment was answered )
+
 ## 2021-07-07
 
 ### [ac00b95](https://github.com/nikitababko/social-network-x-network/commit/ac00b95bed1b4a34275af1e6405d5a5d9d87010c)
