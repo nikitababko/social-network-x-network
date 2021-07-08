@@ -7,6 +7,7 @@ export const POST_TYPES = {
   LOADING_POST: 'LOADING_POST',
   GET_POSTS: 'GET_POSTS',
   UPDATE_POST: 'UPDATE_POST',
+  GET_POST: 'GET_POST',
 };
 
 export const createPost =
@@ -166,5 +167,26 @@ export const unLikePost =
           error: error.response.data.message,
         },
       });
+    }
+  };
+
+export const getPost =
+  ({ detailPost, id, auth }) =>
+  async (dispatch) => {
+    if (detailPost.every((post) => post._id !== id)) {
+      try {
+        const res = await getDataAPI(`post/${id}`, auth.token);
+        dispatch({
+          type: POST_TYPES.GET_POST,
+          payload: res.data.post,
+        });
+      } catch (error) {
+        dispatch({
+          type: GLOBALTYPES.ALERT,
+          payload: {
+            error: error.response.data.message,
+          },
+        });
+      }
     }
   };

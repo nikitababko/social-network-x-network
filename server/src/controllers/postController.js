@@ -11,7 +11,7 @@ const postController = {
         });
       }
 
-      const newPost = new Post({
+      const newPost = new Posts({
         content,
         images,
         user: req.user._id,
@@ -27,7 +27,7 @@ const postController = {
     }
   },
 
-  getPost: async (req, res) => {
+  getPosts: async (req, res) => {
     try {
       const posts = await Posts.find({
         user: [...req.user.following, req.user._id],
@@ -64,7 +64,15 @@ const postController = {
           content,
           images,
         }
-      ).populate('user likes', 'avatar username fullname');
+      )
+        .populate('user likes', 'avatar username fullname')
+        .populate({
+          path: 'comments',
+          populate: {
+            path: 'user likes',
+            select: '-password',
+          },
+        });
 
       res.json({
         message: 'Update post!',
@@ -121,6 +129,43 @@ const postController = {
       );
 
       res.json({ message: 'UnLiked post!' });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  getUserPosts: async (req, res) => {
+    try {
+      const posts = await Posts.find({
+        user: req.params.id,
+      }).sort('-createdAt');
+
+      res.json({
+        posts,
+        result: posts.length,
+      });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  getPost: async (req, res) => {
+    try {
+      const post = await Posts.findById(req.params.id)
+        .populate('user likes', 'avatar username fullname')
+        .populate({
+          path: 'comments',
+          populate: {
+            path: 'user likes',
+            select: '-password',
+          },
+        });
+
+      res.json({ post });
     } catch (error) {
       return res.status(500).json({
         message: error.message,

@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-const Posts = () => {
+import PostThumb from 'components/PostThumb/PostThumb';
+
+const Posts = ({ auth, profile, dispatch, id }) => {
+  const [posts, setPosts] = useState([]);
+  const [result, setResult] = useState(9);
+
+  useEffect(() => {
+    profile.posts.forEach((data) => {
+      if (data._id === id) {
+        setPosts(data.posts);
+        setResult(data.result);
+      }
+    });
+  }, [profile.posts, id]);
+
   return (
     <div>
-      <h2>
-        Я только что запустил новый проект React и решил использовать этот
-        шаблон, который в основном группирует файлы в соответствии с их
-        соответствующим компонентом:
-      </h2>
+      <PostThumb posts={posts} result={result} />
     </div>
   );
 };
