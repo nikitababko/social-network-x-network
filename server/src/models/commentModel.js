@@ -18,6 +18,8 @@ const commentSchema = new Schema(
       type: Types.ObjectId,
       ref: 'user',
     },
+    postId: Types.ObjectId,
+    postUserId: Types.ObjectId,
   },
   {
     timestamps: true,

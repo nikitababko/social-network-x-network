@@ -5,7 +5,7 @@ import { createComment } from 'redux/actions/commentAction';
 
 import './InputComment.scss';
 
-const InputComment = ({ children, post }) => {
+const InputComment = ({ children, post, onReply, setOnReply }) => {
   const [content, setContent] = useState('');
 
   const { auth } = useSelector((state) => state);
@@ -17,7 +17,10 @@ const InputComment = ({ children, post }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!content.trim()) return;
+    if (!content.trim()) {
+      if (setOnReply) return setOnReply(false);
+      return;
+    }
 
     setContent('');
 
@@ -26,9 +29,13 @@ const InputComment = ({ children, post }) => {
       likes: [],
       user: auth.user,
       createdAt: new Date().toISOString(),
+      reply: onReply && onReply.commentId,
+      tag: onReply && onReply.user,
     };
 
     dispatch(createComment({ post, newComment, auth }));
+
+    if (setOnReply) return setOnReply(false);
   };
 
   return (
