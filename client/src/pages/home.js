@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import Posts from 'components/home/Posts/Posts';
 import Status from 'components/home/Status/Status';
+import RightSideBar from 'components/home/RightSideBar';
 import LoadIcon from 'images/loading.gif';
 
 const Home = () => {
@@ -19,14 +20,16 @@ const Home = () => {
             alt="Loading..."
             className="d-block mx-auto"
           />
-        ) : homePosts.result === 0 ? (
+        ) : homePosts.result === 0 && homePosts.posts.length === 0 ? (
           <h2 className="text-center">No posts</h2>
         ) : (
           <Posts />
         )}
       </div>
 
-      <div className="col-md-4">right Sidebar</div>
+      <div className="col-md-4">
+        <RightSideBar />
+      </div>
     </div>
   );
 };

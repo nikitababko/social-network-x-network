@@ -10,6 +10,7 @@ import { Alert, Header, StatusModal } from './components';
 import { refreshToken } from './redux/actions/authAction';
 import PrivateRouter from 'customRouter/PrivateRouter';
 import { getPosts } from 'redux/actions/postAction';
+import { getSuggestions } from 'redux/actions/suggestionsAction';
 
 const App = () => {
   const { auth, status, modal } = useSelector((state) => state);
@@ -20,7 +21,10 @@ const App = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (auth.token) dispatch(getPosts(auth.token));
+    if (auth.token) {
+      dispatch(getPosts(auth.token));
+      dispatch(getSuggestions(auth.token));
+    }
   }, [dispatch, auth.token]);
 
   return (
@@ -40,8 +44,14 @@ const App = () => {
             component={auth.token ? Home : Register}
           />
 
-          <PrivateRouter exact path="/:page" component={PageRender} />
-          <PrivateRouter exact path="/:page/:id" component={PageRender} />
+          <div style={{ marginBottom: '60px' }}>
+            <PrivateRouter exact path="/:page" component={PageRender} />
+            <PrivateRouter
+              exact
+              path="/:page/:id"
+              component={PageRender}
+            />
+          </div>
         </div>
       </div>
     </Router>
