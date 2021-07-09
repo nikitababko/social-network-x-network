@@ -1,3 +1,10 @@
+## 2021-07-09
+
+### [13da577](https://github.com/nikitababko/social-network-x-network/commit/13da5772a907c3f54dff35e07e2ffbd1b84e0ea9)
+
+- Added: feed of all posts of people
+- Added: button 'loadmore' posts (pagination)
+
 ## 2021-07-08
 
 ### [88bb572](https://github.com/nikitababko/social-network-x-network/commit/88bb57252ff88c850442fddf2a6ea4844d4ddf5e)
