@@ -1,5 +1,20 @@
 const Posts = require('../models/postModel');
 
+class APIfeautures {
+  constructor(query, queryString) {
+    this.query = query;
+    this.queryString = queryString;
+  }
+
+  pagination() {
+    const page = this.queryString.page * 1 || 1;
+    const limit = this.queryString.limit * 1 || 9;
+    const skip = (page - 1) * limit;
+    this.query = this.query.skip(skip).limit(limit);
+    return this;
+  }
+}
+
 const postController = {
   createPost: async (req, res) => {
     try {
@@ -29,9 +44,14 @@ const postController = {
 
   getPosts: async (req, res) => {
     try {
-      const posts = await Posts.find({
-        user: [...req.user.following, req.user._id],
-      })
+      const features = new APIfeautures(
+        Posts.find({
+          user: [...req.user.following, req.user._id],
+        }),
+        req.query
+      ).pagination();
+
+      const posts = await features.query
         .sort('-createdAt')
         .populate('user likes', 'avatar username fullname')
         .populate({
@@ -138,9 +158,14 @@ const postController = {
 
   getUserPosts: async (req, res) => {
     try {
-      const posts = await Posts.find({
-        user: req.params.id,
-      }).sort('-createdAt');
+      const features = new APIfeautures(
+        Posts.find({
+          user: req.params.id,
+        }),
+        req.query
+      ).pagination();
+
+      const posts = await features.query.sort('-createdAt');
 
       res.json({
         posts,
@@ -166,6 +191,29 @@ const postController = {
         });
 
       res.json({ post });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  getPostsDiscover: async (req, res) => {
+    try {
+      const features = new APIfeautures(
+        Posts.find({
+          user: { $nin: [...req.user.following, req.user._id] },
+        }),
+        req.query
+      ).pagination();
+
+      const posts = await features.query.sort('-createdAt');
+
+      res.json({
+        message: 'Success!',
+        result: posts.length,
+        posts,
+      });
     } catch (error) {
       return res.status(500).json({
         message: error.message,

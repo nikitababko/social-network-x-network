@@ -1,15 +1,13 @@
 .auth_page {
-  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
   min-height: 100vh;
   background-color: #fdfdfd;
 }
 
 .auth_page form {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   padding: 50px 25px;
   max-width: 400px;
   width: 100%;
