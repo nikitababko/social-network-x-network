@@ -1,20 +1,35 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import moment from 'moment';
 
 import { Avatar } from 'components';
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
+import { deletePost } from 'redux/actions/postAction';
+import { BASE_URL } from 'utils/config';
 
 const CardHeader = ({ post }) => {
   const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const handleEditPost = () => {
     dispatch({
       type: GLOBALTYPES.STATUS,
       payload: { ...post, onEdit: true },
     });
+  };
+
+  const handleDeletePost = () => {
+    if (window.confirm('Are you sure you want to delete this post?')) {
+      dispatch(deletePost({ post, auth }));
+      return history.push('/');
+    }
+  };
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(`${BASE_URL}/post/${post._id}`);
   };
 
   return (
@@ -53,14 +68,14 @@ const CardHeader = ({ post }) => {
                 <span className="material-icons">create</span> Edit post
               </div>
 
-              <div className="dropdown-item">
+              <div className="dropdown-item" onClick={handleDeletePost}>
                 <span className="material-icons">delete_outline</span>{' '}
                 Remove post
               </div>
             </>
           )}
 
-          <div className="dropdown-item">
+          <div className="dropdown-item" onClick={handleCopyLink}>
             <span className="material-icons">content_copy</span> Copy link
           </div>
         </div>

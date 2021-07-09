@@ -1,4 +1,5 @@
 const Posts = require('../models/postModel');
+const Comments = require('../models/commentModel');
 
 class APIfeautures {
   constructor(query, queryString) {
@@ -122,13 +123,19 @@ const postController = {
         });
       }
 
-      await Posts.findOneAndUpdate(
+      const like = await Posts.findOneAndUpdate(
         { _id: req.params.id },
         {
           $push: { likes: req.user._id },
         },
         { new: true }
       );
+
+      if (!like) {
+        return res.status(400).json({
+          message: 'This post does not exist.',
+        });
+      }
 
       res.json({ message: 'Liked post!' });
     } catch (error) {
@@ -140,13 +147,19 @@ const postController = {
 
   unLikePost: async (req, res) => {
     try {
-      await Posts.findOneAndUpdate(
+      const like = await Posts.findOneAndUpdate(
         { _id: req.params.id },
         {
           $pull: { likes: req.user._id },
         },
         { new: true }
       );
+
+      if (!like) {
+        return res.status(400).json({
+          message: 'This post does not exist.',
+        });
+      }
 
       res.json({ message: 'UnLiked post!' });
     } catch (error) {
@@ -190,6 +203,12 @@ const postController = {
           },
         });
 
+      if (!post) {
+        return res.status(400).json({
+          message: 'This post does not exist.',
+        });
+      }
+
       res.json({ post });
     } catch (error) {
       return res.status(500).json({
@@ -214,6 +233,23 @@ const postController = {
         result: posts.length,
         posts,
       });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  deletePost: async (req, res) => {
+    try {
+      const post = await Posts.findOneAndDelete({
+        _id: req.params.id,
+        user: req.user._id,
+      });
+
+      await Comments.deleteMany({ _id: { $in: post.comments } });
+
+      res.json({ message: 'Deleted post!' });
     } catch (error) {
       return res.status(500).json({
         message: error.message,
