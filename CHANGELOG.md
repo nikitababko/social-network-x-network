@@ -5,6 +5,13 @@
 - Added: feed of all posts of people
 - Added: button 'loadmore' posts (pagination)
 
+### [d91ba1f](https://github.com/nikitababko/social-network-x-network/commit/d91ba1fa6ed93d112708f7edbe40adced4e83512)
+
+- Added: conditions into post/commentController
+- Added ability: delete posts with their comments
+- Added ability: copy post link
+- Added ability: share a link on a social networks
+
 ## 2021-07-08
 
 ### [88bb572](https://github.com/nikitababko/social-network-x-network/commit/88bb57252ff88c850442fddf2a6ea4844d4ddf5e)
