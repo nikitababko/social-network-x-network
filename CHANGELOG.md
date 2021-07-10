@@ -12,6 +12,11 @@
 - Added ability: copy post link
 - Added ability: share a link on a social networks
 
+### [837296b](https://github.com/nikitababko/social-network-x-network/commit/837296bb715487f2e19924a1baf00ba8fddee5ab)
+
+- Added: list of recommended people
+- Refactoring: getPostsDiscover
+
 ## 2021-07-08
 
 ### [88bb572](https://github.com/nikitababko/social-network-x-network/commit/88bb57252ff88c850442fddf2a6ea4844d4ddf5e)
