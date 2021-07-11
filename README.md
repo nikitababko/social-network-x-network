@@ -16,4 +16,8 @@
    ```
 
 4. Install MongoDB and start it.
-5. Run command `npm start` or `yarn start`.
+5. Run command
+   - Client
+     - `npm start` or `yarn start`
+   - Server
+     - `npm dev` or `yarn dev`
