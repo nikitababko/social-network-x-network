@@ -1,5 +1,5 @@
 import { POST_TYPES } from 'redux/actions/postAction';
-import { EditData, GLOBALTYPES } from '../actions/globalTypes';
+import { EditData } from '../actions/globalTypes';
 
 const initialState = [];
 

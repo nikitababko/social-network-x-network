@@ -1,4 +1,7 @@
 .profile {
+  width: 100%;
+  min-height: 100vh;
+
   .info {
     $self: &;
     width: 100%;
@@ -44,6 +47,32 @@
             text-decoration: underline;
           }
         }
+      }
+    }
+  }
+
+  &__tab {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+
+    button {
+      margin: 0 25px;
+      padding: 5px 20px;
+      outline: none;
+      border: none;
+      font-size: 1.2rem;
+      font-weight: bold;
+      background-color: #fff;
+      text-transform: uppercase;
+      opacity: 0.5;
+
+      &.active {
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+        opacity: 0.8;
       }
     }
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
@@ -8,13 +8,24 @@ const Alert = () => {
   const { alert } = useSelector((state) => state);
   const dispatch = useDispatch();
 
+  const [isAlert, setIsAlert] = useState(false);
+
+  useEffect(() => {
+    if (alert) {
+      setIsAlert(true);
+    }
+    setTimeout(() => {
+      setIsAlert(false);
+    }, 3000);
+  }, [alert]);
+
   return (
     <div>
       {/* Loading */}
       {alert.loading && <Loading />}
 
       {/* Error */}
-      {alert.error && (
+      {isAlert && alert.error && (
         <Toast
           message={{
             title: 'Error',
@@ -31,7 +42,7 @@ const Alert = () => {
       )}
 
       {/* Success */}
-      {alert.success && (
+      {isAlert && alert.success && (
         <Toast
           message={{
             title: 'Success',

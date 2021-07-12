@@ -1,5 +1,6 @@
 const Posts = require('../models/postModel');
 const Comments = require('../models/commentModel');
+const Users = require('../models/userModel');
 
 class APIfeautures {
   constructor(query, queryString) {
@@ -250,6 +251,87 @@ const postController = {
       await Comments.deleteMany({ _id: { $in: post.comments } });
 
       res.json({ message: 'Deleted post!' });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  savePost: async (req, res) => {
+    try {
+      const user = await Users.find({
+        _id: req.user._id,
+        saved: req.params.id,
+      });
+
+      if (user.length > 0) {
+        return res.status(400).json({
+          message: 'You saved this post.',
+        });
+      }
+
+      const save = await Users.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $push: { saved: req.params.id },
+        },
+        { new: true }
+      );
+
+      if (!save) {
+        return res.status(400).json({
+          message: 'This user does not exist.',
+        });
+      }
+
+      res.json({ message: 'Saved post!' });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  unSavePost: async (req, res) => {
+    try {
+      const save = await Users.findOneAndUpdate(
+        { _id: req.user._id },
+        {
+          $pull: { saved: req.params.id },
+        },
+        { new: true }
+      );
+
+      if (!save) {
+        return res.status(400).json({
+          message: 'This user does not exist.',
+        });
+      }
+
+      res.json({ message: 'Unsaved post!' });
+    } catch (error) {
+      return res.status(500).json({
+        message: error.message,
+      });
+    }
+  },
+
+  getSavedPosts: async (req, res) => {
+    try {
+      const features = new APIfeautures(
+        Posts.find({
+          _id: { $in: req.user.saved },
+        }),
+        req.query
+      ).pagination();
+
+      const savedPosts = await features.query.sort('-createdAt');
+
+      res.json({
+        savedPosts,
+        result: savedPosts.length,
+      });
     } catch (error) {
       return res.status(500).json({
         message: error.message,

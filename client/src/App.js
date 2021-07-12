@@ -44,7 +44,7 @@ const App = () => {
             component={auth.token ? Home : Register}
           />
 
-          <div style={{ marginBottom: '60px' }}>
+          <div className="wrap_page">
             <PrivateRouter exact path="/:page" component={PageRender} />
             <PrivateRouter
               exact

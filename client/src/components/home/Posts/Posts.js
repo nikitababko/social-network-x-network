@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import PostCard from 'components/PostCard';
 import LoadMoreButton from 'components/LoadMoreButton';
 import LoadIcon from 'images/loading.gif';
-import { PROFILE_TYPES } from 'redux/actions/profileAction';
 import { getDataAPI } from 'utils/fetchData';
 
 import './Posts.scss';
