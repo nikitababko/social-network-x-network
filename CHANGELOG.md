@@ -1,3 +1,9 @@
+## 2021-07-12
+
+### [79fce4f](https://github.com/nikitababko/social-network-x-network/commit/79fce4f52d60a485fe73327f746957af63fac87a)
+
+- Added ability: save post to favorite list
+
 ## 2021-07-09
 
 ### [13da577](https://github.com/nikitababko/social-network-x-network/commit/13da5772a907c3f54dff35e07e2ffbd1b84e0ea9)
