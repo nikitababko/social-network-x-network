@@ -12,6 +12,10 @@
 
 - Added ability: create notify
 
+### [86022d6](https://github.com/nikitababko/social-network-x-network/commit/86022d642469ef20bbff16609b930e3de517ac78)
+
+- Added ability: get notifies
+
 ## 2021-07-09
 
 ### [13da577](https://github.com/nikitababko/social-network-x-network/commit/13da5772a907c3f54dff35e07e2ffbd1b84e0ea9)
