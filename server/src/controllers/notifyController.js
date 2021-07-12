@@ -38,6 +38,18 @@ const notifyCtrl = {
       return res.status(500).json({ message: error.message });
     }
   },
+
+  getNotifies: async (req, res) => {
+    try {
+      const notifies = await Notifies.find({ recipients: req.user._id })
+        .sort('-createdAt')
+        .populate('user', 'avatar username');
+
+      return res.json({ notifies });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = notifyCtrl;

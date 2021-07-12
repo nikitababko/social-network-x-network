@@ -14,6 +14,7 @@ import { getPosts } from 'redux/actions/postAction';
 import { getSuggestions } from 'redux/actions/suggestionsAction';
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
 import SocketClient from 'SocketClient';
+import { getNotifies } from 'redux/actions/notifyAction';
 
 const App = () => {
   const { auth, status, modal } = useSelector((state) => state);
@@ -35,6 +36,7 @@ const App = () => {
     if (auth.token) {
       dispatch(getPosts(auth.token));
       dispatch(getSuggestions(auth.token));
+      dispatch(getNotifies(auth.token));
     }
   }, [dispatch, auth.token]);
 
