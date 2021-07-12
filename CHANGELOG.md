@@ -4,6 +4,10 @@
 
 - Added ability: save post to favorite list
 
+### [cd9f12b](https://github.com/nikitababko/social-network-x-network/commit/cd9f12bf9cc021f4e8c3c71c5a41231995152ab7)
+
+- Added realtime: like, unlike, comments(create, delete), follow, unfollow
+
 ## 2021-07-09
 
 ### [13da577](https://github.com/nikitababko/social-network-x-network/commit/13da5772a907c3f54dff35e07e2ffbd1b84e0ea9)
