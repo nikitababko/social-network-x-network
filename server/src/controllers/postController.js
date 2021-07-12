@@ -36,7 +36,13 @@ const postController = {
 
       await newPost.save();
 
-      res.json({ message: 'Created post!', newPost });
+      res.json({
+        message: 'Created post!',
+        newPost: {
+          ...newPost._doc,
+          user: req.user,
+        },
+      });
     } catch (error) {
       return res.status(500).json({
         message: error.message,
@@ -250,7 +256,13 @@ const postController = {
 
       await Comments.deleteMany({ _id: { $in: post.comments } });
 
-      res.json({ message: 'Deleted post!' });
+      res.json({
+        message: 'Deleted post!',
+        newPost: {
+          ...post,
+          user: req.user,
+        },
+      });
     } catch (error) {
       return res.status(500).json({
         message: error.message,

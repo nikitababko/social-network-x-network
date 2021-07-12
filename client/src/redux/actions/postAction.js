@@ -6,6 +6,7 @@ import {
   patchDataAPI,
   postDataAPI,
 } from 'utils/fetchData';
+import { createNotify, removeNotify } from './notifyAction';
 
 export const POST_TYPES = {
   CREATE_POST: 'CREATE_POST',
@@ -17,7 +18,7 @@ export const POST_TYPES = {
 };
 
 export const createPost =
-  ({ content, images, auth }) =>
+  ({ content, images, auth, socket }) =>
   async (dispatch) => {
     let media = [];
 
@@ -46,6 +47,18 @@ export const createPost =
         type: GLOBALTYPES.ALERT,
         payload: { loading: false },
       });
+
+      // Notify
+      const message = {
+        id: res.data.newPost._id,
+        text: 'Added a new post.',
+        recipients: res.data.newPost.user.followers,
+        url: `/post/${res.data.newPost._id}`,
+        content,
+        image: media[0].url,
+      };
+
+      dispatch(createNotify({ message, auth, socket }));
     } catch (error) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -202,14 +215,23 @@ export const getPost =
   };
 
 export const deletePost =
-  ({ post, auth }) =>
+  ({ post, auth, socket }) =>
   async (dispatch) => {
     dispatch({
       type: POST_TYPES.DELETE_POST,
       payload: post,
     });
     try {
-      await deleteDataAPI(`post/${post._id}`, auth.token);
+      const res = await deleteDataAPI(`post/${post._id}`, auth.token);
+
+      // Notify
+      const message = {
+        id: post._id,
+        text: 'Deleted post.',
+        recipients: res.data.newPost.user.followers,
+        url: `/post/${post._id}`,
+      };
+      dispatch(removeNotify({ message, auth, socket }));
     } catch (error) {
       dispatch({
         type: GLOBALTYPES.ALERT,

@@ -1,7 +1,6 @@
-// const { Schema, model, Types } = require('mongoose');
-const mongoose = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
-const userSchema = new mongoose.Schema(
+const userSchema = new Schema(
   {
     fullname: {
       type: String,
@@ -58,19 +57,19 @@ const userSchema = new mongoose.Schema(
     },
     followers: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'user',
       },
     ],
     following: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'user',
       },
     ],
     saved: [
       {
-        type: mongoose.Types.ObjectId,
+        type: Types.ObjectId,
         ref: 'user',
       },
     ],
@@ -80,4 +79,4 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = model('user', userSchema);
