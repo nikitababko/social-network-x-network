@@ -16,7 +16,7 @@ import { BASE_URL } from 'utils/config';
 import './CardFooter.scss';
 
 const CardFooter = ({ post }) => {
-  const { auth } = useSelector((state) => state);
+  const { auth, socket } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   const [isLike, setIsLike] = useState(false);
@@ -40,7 +40,7 @@ const CardFooter = ({ post }) => {
     if (loadLike) return;
 
     setLoadLike(true);
-    await dispatch(likePost({ post, auth }));
+    await dispatch(likePost({ post, auth, socket }));
     setLoadLike(false);
   };
 
@@ -48,7 +48,7 @@ const CardFooter = ({ post }) => {
     if (loadLike) return;
 
     setLoadLike(true);
-    await dispatch(unLikePost({ post, auth }));
+    await dispatch(unLikePost({ post, auth, socket }));
     setLoadLike(false);
   };
 

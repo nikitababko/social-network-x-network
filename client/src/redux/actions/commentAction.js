@@ -3,7 +3,7 @@ import { POST_TYPES } from './postAction';
 import { deleteDataAPI, patchDataAPI, postDataAPI } from 'utils/fetchData';
 
 export const createComment =
-  ({ post, newComment, auth }) =>
+  ({ post, newComment, auth, socket }) =>
   async (dispatch) => {
     const newPost = { ...post, comments: [...post.comments, newComment] };
     dispatch({
@@ -25,6 +25,9 @@ export const createComment =
         type: POST_TYPES.UPDATE_POST,
         payload: newPost,
       });
+
+      // Socket
+      socket.emit('createComment', newPost);
     } catch (error) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -128,7 +131,7 @@ export const unLikeComment =
   };
 
 export const deleteComment =
-  ({ post, comment, auth }) =>
+  ({ post, comment, auth, socket }) =>
   async (dispatch) => {
     let commentId = comment._id;
 
@@ -149,6 +152,7 @@ export const deleteComment =
       payload: newPost,
     });
 
+    socket.emit('deleteComment', newPost);
     try {
       deleteArr.forEach((item) => {
         deleteDataAPI(`comment/${item._id}`, auth.token);

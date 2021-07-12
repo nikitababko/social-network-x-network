@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const SocketServer = require('./socketServer');
 
 // Setup app
 const app = express();
@@ -11,6 +12,15 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('dev'));
 app.use(cookieParser());
+
+// Socket
+const http = require('http').createServer(app);
+const io = require('socket.io')(http);
+
+const users = [];
+io.on('connection', (socket) => {
+  SocketServer(socket);
+});
 
 // Routes
 app.use('/api', require('./routes/authRouter'));
@@ -36,7 +46,7 @@ mongoose.connect(
 
 // Setup server
 const PORT = process.env.PORT;
-app.listen(PORT, (err) => {
+http.listen(PORT, (err) => {
   if (err) throw Error(err);
   console.log(`Server has started on port: ${PORT}`);
 });
