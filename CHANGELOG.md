@@ -8,6 +8,10 @@
 
 - Added realtime: like, unlike, comments(create, delete), follow, unfollow
 
+### [1978aab](https://github.com/nikitababko/social-network-x-network/commit/1978aabb71cd8bf1b2bcae35891a1b15baebb7b4)
+
+- Added ability: create notify
+
 ## 2021-07-09
 
 ### [13da577](https://github.com/nikitababko/social-network-x-network/commit/13da5772a907c3f54dff35e07e2ffbd1b84e0ea9)
