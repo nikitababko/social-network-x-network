@@ -13,6 +13,13 @@
 - Added notify sound
 - [Added notifies displaying notifications on the user's desktop](https://developer.mozilla.org/ru/docs/Web/API/notification)
 
+### [9027434](https://github.com/nikitababko/social-network-x-network/commit/90274348b8a1baee5df3fb50e3b74697b7c0279d)
+
+- Added message component
+- Added dialogs
+- Added ability: choice dialog
+- Added ability: users search
+
 ## 2021-07-12
 
 ### [79fce4f](https://github.com/nikitababko/social-network-x-network/commit/79fce4f52d60a485fe73327f746957af63fac87a)
