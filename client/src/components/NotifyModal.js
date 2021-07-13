@@ -5,10 +5,37 @@ import moment from 'moment';
 
 import NoNotice from 'images/notice.png';
 import { Avatar } from 'components';
+import {
+  deleteAllNotifies,
+  isReadNotify,
+  NOTIFY_TYPES,
+} from 'redux/actions/notifyAction';
 
 const NotifyModal = () => {
   const { auth, notify } = useSelector((state) => state);
   const dispatch = useDispatch();
+
+  const handleIsRead = (message) => {
+    dispatch(isReadNotify({ message, auth }));
+  };
+
+  const handleSound = () => {
+    dispatch({ type: NOTIFY_TYPES.UPDATE_SOUND, payload: !notify.sound });
+  };
+
+  const handleDeleteAll = () => {
+    const newArr = notify.data.filter((item) => item.isRead === false);
+    if (newArr.length === 0)
+      return dispatch(deleteAllNotifies(auth.token));
+
+    if (
+      window.confirm(
+        `You have ${newArr.length} unread notices. Are you sure you want to delete all?`
+      )
+    ) {
+      return dispatch(deleteAllNotifies(auth.token));
+    }
+  };
 
   return (
     <div style={{ minWidth: '280px' }}>
@@ -16,13 +43,15 @@ const NotifyModal = () => {
         <h3>Notification</h3>
         {notify.sound ? (
           <i
-            className="fas fa-bell text-dander"
+            className="fas fa-bell text-danger"
             style={{ fontSize: '1.2rem', cursor: 'pointer' }}
+            onClick={handleSound}
           />
         ) : (
           <i
             className="fas fa-bell-slash text-danger"
             style={{ fontSize: '1.2rem', cursor: 'pointer' }}
+            onClick={handleSound}
           />
         )}
       </div>
@@ -39,6 +68,7 @@ const NotifyModal = () => {
             <Link
               to={`${message.url}`}
               className="d-flex text-dark align-items-center"
+              onClick={() => handleIsRead(message)}
             >
               <Avatar src={message.user.avatar} size="big-avatar" />
 
@@ -75,6 +105,7 @@ const NotifyModal = () => {
       <div
         className="text-right text-danger mr-2"
         style={{ cursor: 'pointer' }}
+        onClick={handleDeleteAll}
       >
         Delete all
       </div>
