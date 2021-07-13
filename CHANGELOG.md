@@ -6,6 +6,13 @@
 - Added realtime notify for comments: create, remove, like
 - Added realtime notify for follow/unfollow
 
+### [ea2a39d](https://github.com/nikitababko/social-network-x-network/commit/ea2a39d84a9c2ac7419a9d38108742b923898da5)
+
+- Added: status "readed/noreaded" notify
+- Added ability: remove all notifies
+- Added notify sound
+- [Added notifies displaying notifications on the user's desktop](https://developer.mozilla.org/ru/docs/Web/API/notification)
+
 ## 2021-07-12
 
 ### [79fce4f](https://github.com/nikitababko/social-network-x-network/commit/79fce4f52d60a485fe73327f746957af63fac87a)
