@@ -72,6 +72,27 @@ const SocketServer = (socket) => {
     user &&
       socket.to(`${user.socketId}`).emit('unFollowToClient', newUser);
   });
+
+  // Notification
+  socket.on('createNotify', (message) => {
+    const client = users.find((user) =>
+      message.recipients.includes(user.id)
+    );
+    client &&
+      socket
+        .to(`${client.socketId}`)
+        .emit('createNotifyToClient', message);
+  });
+
+  socket.on('removeNotify', (message) => {
+    const client = users.find((user) =>
+      message.recipients.includes(user.id)
+    );
+    client &&
+      socket
+        .to(`${client.socketId}`)
+        .emit('removeNotifyToClient', message);
+  });
 };
 
 module.exports = SocketServer;

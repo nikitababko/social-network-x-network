@@ -8,6 +8,7 @@ import {
 export const NOTIFY_TYPES = {
   GET_NOTIFIES: 'GET_NOTIFIES',
   CREATE_NOTIFY: 'CREATE_NOTIFY',
+  REMOVE_NOTIFY: 'REMOVE_NOTIFY',
 };
 
 export const createNotify =

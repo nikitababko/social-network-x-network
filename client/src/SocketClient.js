@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
+import { NOTIFY_TYPES } from 'redux/actions/notifyAction';
 import { POST_TYPES } from 'redux/actions/postAction';
 
 const SocketClient = () => {
@@ -69,6 +70,31 @@ const SocketClient = () => {
 
     return () => socket.off('unFollowToClient');
   }, [socket, dispatch, auth]);
+
+  // Notification
+  useEffect(() => {
+    socket.on('createNotifyToClient', (message) => {
+      dispatch({ type: NOTIFY_TYPES.CREATE_NOTIFY, payload: message });
+
+      // if (notify.sound) audioRef.current.play();
+      // spawnNotification(
+      //   message.user.username + ' ' + message.text,
+      //   message.user.avatar,
+      //   message.url,
+      //   'X-NETWORK'
+      // );
+    });
+
+    return () => socket.off('createNotifyToClient');
+  }, [socket, dispatch]);
+
+  useEffect(() => {
+    socket.on('removeNotifyToClient', (message) => {
+      dispatch({ type: NOTIFY_TYPES.REMOVE_NOTIFY, payload: message });
+    });
+
+    return () => socket.off('removeNotifyToClient');
+  }, [socket, dispatch]);
 
   return <></>;
 };

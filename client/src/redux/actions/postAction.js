@@ -157,6 +157,18 @@ export const likePost =
 
     try {
       await patchDataAPI(`post/${post._id}/like`, null, auth.token);
+
+      // Notify
+      const message = {
+        id: auth.user._id,
+        text: 'Liked your post.',
+        recipients: [post.user._id],
+        url: `/post/${post._id}`,
+        content: post.content,
+        image: post.images[0].url,
+      };
+
+      dispatch(createNotify({ message, auth, socket }));
     } catch (error) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -183,6 +195,15 @@ export const unLikePost =
 
     try {
       await patchDataAPI(`post/${post._id}/unlike`, null, auth.token);
+
+      // Notify
+      const message = {
+        id: auth.user._id,
+        text: 'Unliked your post.',
+        recipients: [post.user._id],
+        url: `/post/${post._id}`,
+      };
+      dispatch(removeNotify({ message, auth, socket }));
     } catch (error) {
       dispatch({
         type: GLOBALTYPES.ALERT,
