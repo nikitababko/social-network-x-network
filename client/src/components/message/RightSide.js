@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -8,7 +8,11 @@ import Icons from 'components/Icons';
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
 import { imageShow, videoShow } from 'utils/mediaShow';
 import { imageUpload } from 'utils/imageUpload';
-import { addMessage, getMessages } from 'redux/actions/messageAction';
+import {
+  addMessage,
+  getMessages,
+  MESS_TYPES,
+} from 'redux/actions/messageAction';
 import LoadIcon from 'images/loading.gif';
 
 const RightSide = () => {
@@ -22,12 +26,24 @@ const RightSide = () => {
   const [media, setMedia] = useState([]);
   const [loadMedia, setLoadMedia] = useState(false);
 
+  const refDisplay = useRef();
+  const pageEnd = useRef();
+
+  const [page, setPage] = useState(0);
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    const newData = message.data.filter(
+      (item) => item.sender === auth.user._id || item.sender === id
+    );
+    setData(newData);
+  }, [message.data, auth.user._id, id]);
+
   useEffect(() => {
     const newData = message.users.find((item) => item._id === id);
-    if (newData) {
-      setUser(newData);
-    }
-  }, [message.data, id]);
+    if (newData) setUser(newData);
+  }, [message.users, id]);
 
   const onChangeText = (e) => {
     setText(e.target.value);
@@ -79,17 +95,69 @@ const RightSide = () => {
     };
 
     setLoadMedia(false);
+
     await dispatch(addMessage({ message, auth, socket }));
+
+    if (refDisplay.current) {
+      refDisplay.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
   };
 
   useEffect(() => {
     if (id) {
       const getMessagesData = async () => {
+        dispatch({
+          type: MESS_TYPES.GET_MESSAGES,
+          payload: { messages: [] },
+        });
+
+        setPage(1);
+
         await dispatch(getMessages({ auth, id }));
+        if (refDisplay.current) {
+          refDisplay.current.scrollIntoView({
+            behavior: 'smooth',
+            block: 'end',
+          });
+        }
       };
       getMessagesData();
     }
   }, [id, dispatch, auth]);
+
+  // Load More
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setPage((p) => p + 1);
+        }
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    observer.observe(pageEnd.current);
+  }, [setPage]);
+
+  useEffect(() => {
+    if (message.resultData >= (page - 1) * 9 && page > 1) {
+      dispatch(getMessages({ auth, id, page }));
+    }
+  }, [message.resultData, page, id, auth, dispatch]);
+
+  useEffect(() => {
+    if (refDisplay.current) {
+      refDisplay.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+      });
+    }
+  }, [text]);
 
   return (
     <>
@@ -107,8 +175,12 @@ const RightSide = () => {
         className="chat_container"
         style={{ height: media.length > 0 ? 'calc(100% - 180px)' : '' }}
       >
-        <div className="chat_display">
-          {message.data.map((message, index) => (
+        <div className="chat_display" ref={refDisplay}>
+          <button style={{ marginTop: '-25px', opacity: 0 }} ref={pageEnd}>
+            Load more
+          </button>
+
+          {data.map((message, index) => (
             <div key={index}>
               {message.sender !== auth.user._id && (
                 <div className="chat_row other_message">

@@ -43,7 +43,7 @@ const messageReducer = (state = initialState, action) => {
     case MESS_TYPES.GET_MESSAGES:
       return {
         ...state,
-        data: action.payload.messages,
+        data: action.payload.messages.reverse(),
         resultData: action.payload.result,
       };
 

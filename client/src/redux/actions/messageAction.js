@@ -22,7 +22,16 @@ export const addUser =
 export const addMessage =
   ({ message, auth, socket }) =>
   async (dispatch) => {
-    dispatch({ type: MESS_TYPES.ADD_MESSAGE, payload: message });
+    dispatch({
+      type: MESS_TYPES.ADD_MESSAGE,
+      payload: message,
+    });
+
+    const { _id, avatar, fullname, username } = auth.user;
+    socket.emit('addMessage', {
+      ...message,
+      user: { _id, avatar, fullname, username },
+    });
 
     try {
       await postDataAPI('message', message, auth.token);
