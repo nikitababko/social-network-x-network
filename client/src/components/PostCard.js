@@ -6,11 +6,11 @@ import CardHeader from './home/post_card/CardHeader';
 import Comments from './home/comments/Comments/Comments';
 import InputComment from './home/InputComment/InputComment';
 
-const PostCard = ({ post }) => {
+const PostCard = ({ post, theme }) => {
   return (
     <div className="card my-3">
       <CardHeader post={post} />
-      <CardBody post={post} />
+      <CardBody post={post} theme={theme} />
       <CardFooter post={post} />
 
       <Comments post={post} />

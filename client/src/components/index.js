@@ -8,3 +8,4 @@ export { default as FollowButton } from './FollowButton.js';
 export { default as UserCard } from './UserCard';
 export { default as StatusModal } from './StatusModal';
 export { default as Carousel } from './Carousel';
+export { default as Icons } from './Icons';

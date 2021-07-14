@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { GLOBALTYPES } from 'redux/actions/globalTypes';
 import { createPost, updatePost } from 'redux/actions/postAction';
+import { Icons } from 'components';
 
 import './index.scss';
 
@@ -30,7 +31,7 @@ const StatusModal = () => {
     setContent(e.target.value);
   };
 
-  const handleChangeInput = (e) => {
+  const handleChangeImages = (e) => {
     const files = [...e.target.files];
     let error = '';
     let newImages = [];
@@ -40,8 +41,8 @@ const StatusModal = () => {
         return (error = 'File does not exist.');
       }
 
-      if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
-        return (error = 'Image format is incorrect.');
+      if (file.size > 1024 * 1024 * 5) {
+        return (error = 'The image largest is 5mb.');
       }
 
       return newImages.push(file);
@@ -127,6 +128,29 @@ const StatusModal = () => {
     }
   }, [status]);
 
+  const imageShow = (src) => {
+    return (
+      <img
+        src={src}
+        alt="Image"
+        className="img-thumbnail"
+        style={{ filter: theme ? 'invert(1)' : 'invert(0)' }}
+      />
+    );
+  };
+
+  const videoShow = (src) => {
+    return (
+      <video
+        controls
+        src={src}
+        alt="Image"
+        className="img-thumbnail"
+        style={{ filter: theme ? 'invert(1)' : 'invert(0)' }}
+      />
+    );
+  };
+
   return (
     <div className="status-modal">
       <form onSubmit={handleSubmit}>
@@ -141,23 +165,40 @@ const StatusModal = () => {
             value={content}
             onChange={handleChangeContent}
             placeholder={`${auth.user.username}, what are you thinking?`}
+            style={{
+              filter: theme ? 'invert(1)' : 'invert(0)',
+              color: theme ? 'white' : '#111',
+              background: theme ? 'rgba(0,0,0,.03)' : '',
+            }}
           ></textarea>
+
+          <div className="d-flex">
+            <div className="flex-fill"></div>
+            <Icons
+              setContent={setContent}
+              content={content}
+              theme={theme}
+            />
+          </div>
 
           <div className="show-images">
             {images.map((image, index) => (
               <div key={index} id="file-image">
-                <img
-                  src={
-                    image.camera
-                      ? image.camera
-                      : image.url
-                      ? image.url
-                      : URL.createObjectURL(image)
-                  }
-                  alt="Image"
-                  className="img-thumbnail"
-                  style={{ filter: theme ? 'invert(1)' : 'invert(0)' }}
-                />
+                {image.camera ? (
+                  imageShow(image.camera)
+                ) : image.url ? (
+                  <>
+                    {image.url.match(/video/i)
+                      ? videoShow(image.url)
+                      : imageShow(image.url)}
+                  </>
+                ) : (
+                  <>
+                    {image.type.match(/video/i)
+                      ? videoShow(URL.createObjectURL(image))
+                      : imageShow(URL.createObjectURL(image))}
+                  </>
+                )}
                 <span onClick={handleDeleteImages}>&times;</span>
               </div>
             ))}
@@ -193,8 +234,8 @@ const StatusModal = () => {
                     name="file"
                     id="file"
                     multiple
-                    accept="image/*"
-                    onChange={handleChangeInput}
+                    accept="image/*,video/*"
+                    onChange={handleChangeImages}
                   />
                 </div>
               </>

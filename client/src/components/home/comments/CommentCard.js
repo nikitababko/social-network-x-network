@@ -23,7 +23,7 @@ const CommentCard = ({ children, comment, post, commentId }) => {
 
   const [onReply, setOnReply] = useState(false);
 
-  const { auth } = useSelector((state) => state);
+  const { auth, theme } = useSelector((state) => state);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -99,7 +99,13 @@ const CommentCard = ({ children, comment, post, commentId }) => {
       </Link>
 
       <div className="comment_content">
-        <div className="flex-fill">
+        <div
+          className="flex-fill"
+          style={{
+            filter: theme ? 'invert(1)' : 'invert(0)',
+            color: theme ? '#fff' : '#111',
+          }}
+        >
           {onEdit ? (
             <textarea rows="5" value={content} onChange={handleContent} />
           ) : (

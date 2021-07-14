@@ -4,7 +4,7 @@ import { Carousel } from 'components';
 
 import './CardBody.scss';
 
-const CardBody = ({ post }) => {
+const CardBody = ({ post, theme }) => {
   const [readMore, setReadMore] = useState(false);
 
   const handleReadMore = () => {
@@ -13,7 +13,13 @@ const CardBody = ({ post }) => {
 
   return (
     <div className="card_body">
-      <div className="card_body__content">
+      <div
+        className="card_body__content"
+        style={{
+          filter: theme ? 'invert(1)' : 'invert(0)',
+          color: theme ? '#fff' : '#111',
+        }}
+      >
         <span>
           {post.content.length < 60
             ? post.content
