@@ -14,6 +14,12 @@
 - Added ability: send message on client and server
 - Added ability: get messages and get dialogs
 
+### [3bdfe13](https://github.com/nikitababko/social-network-x-network/commit/3bdfe136356e242e2a446d25bee3f74f46439a53)
+
+- Added realtime for message
+- Added pagination into chat
+- Added scroll into chat
+
 ## 2021-07-13
 
 ### [4e72ecd](https://github.com/nikitababko/social-network-x-network/commit/4e72ecdbfec91ccce264d3b04a1b24067b86025d)
