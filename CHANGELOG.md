@@ -7,7 +7,12 @@
 
 ### [1bae55b](https://github.com/nikitababko/social-network-x-network/commit/1bae55b8cf501482ee5da7db45377414348d8b8b)
 
-- Added ability: send message on Client(text, smiles, image, video)
+- Added ability: send message on client(text, smiles, image, video)
+
+### [858af59](https://github.com/nikitababko/social-network-x-network/commit/858af590053eb627e4a7a491a1a53739a5e6aa9c)
+
+- Added ability: send message on client and server
+- Added ability: get messages and get dialogs
 
 ## 2021-07-13
 
