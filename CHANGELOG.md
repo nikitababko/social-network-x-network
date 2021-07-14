@@ -1,3 +1,10 @@
+## 2021-07-14
+
+### [8ef5cc9](https://github.com/nikitababko/social-network-x-network/commit/8ef5cc924eb1e1e021d1a72a46b8fbcfd954ebc2)
+
+- Added ability: send video into posts
+- Added smiles into comments and posts
+
 ## 2021-07-13
 
 ### [4e72ecd](https://github.com/nikitababko/social-network-x-network/commit/4e72ecdbfec91ccce264d3b04a1b24067b86025d)
