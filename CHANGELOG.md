@@ -5,6 +5,10 @@
 - Added ability: send video into posts
 - Added smiles into comments and posts
 
+### [1bae55b](https://github.com/nikitababko/social-network-x-network/commit/1bae55b8cf501482ee5da7db45377414348d8b8b)
+
+- Added ability: send message on Client(text, smiles, image, video)
+
 ## 2021-07-13
 
 ### [4e72ecd](https://github.com/nikitababko/social-network-x-network/commit/4e72ecdbfec91ccce264d3b04a1b24067b86025d)
