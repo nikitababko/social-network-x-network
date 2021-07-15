@@ -1,3 +1,10 @@
+## 2021-07-15
+
+### [b867134](https://github.com/nikitababko/social-network-x-network/commit/b867134eb70a5768f242232bf3b8f7372d71ddbc)
+
+- Added ability: delete own messeges
+- Optimized: chat pagination
+
 ## 2021-07-14
 
 ### [8ef5cc9](https://github.com/nikitababko/social-network-x-network/commit/8ef5cc924eb1e1e021d1a72a46b8fbcfd954ebc2)
