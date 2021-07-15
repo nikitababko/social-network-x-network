@@ -39,6 +39,7 @@ const CallModal = () => {
   // End call
   const handleEndCall = () => {
     dispatch({ type: GLOBALTYPES.CALL, payload: null });
+    socket.emit('endCall', call);
   };
 
   useEffect(() => {
@@ -53,6 +54,14 @@ const CallModal = () => {
     }
   }, [dispatch, answer]);
 
+  useEffect(() => {
+    socket.on('endCallToClient', (data) => {
+      dispatch({ type: GLOBALTYPES.CALL, payload: null });
+    });
+
+    return () => socket.off('endCallToClient');
+  }, [socket, dispatch]);
+
   // Answer Call
   const handleAnswer = () => {
     setAnswer(true);
@@ -66,22 +75,38 @@ const CallModal = () => {
           <h4>{call.username}</h4>
           <h6>{call.fullname}</h6>
 
-          <div>
-            {call.video ? (
-              <span>calling video...</span>
-            ) : (
-              <span>calling audio...</span>
-            )}
-          </div>
+          {answer ? (
+            <div>
+              <span>
+                {hours.toString().length < 2 ? '0' + hours : hours}
+              </span>
+              <span>:</span>
+              <span>{mins.toString().length < 2 ? '0' + mins : mins}</span>
+              <span>:</span>
+              <span>
+                {second.toString().length < 2 ? '0' + second : second}
+              </span>
+            </div>
+          ) : (
+            <div>
+              {call.video ? (
+                <span>calling video...</span>
+              ) : (
+                <span>calling audio...</span>
+              )}
+            </div>
+          )}
         </div>
 
-        <div className="timer">
-          <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
-          <small>:</small>
-          <small>
-            {second.toString().length < 2 ? '0' + second : second}
-          </small>
-        </div>
+        {!answer && (
+          <div className="timer">
+            <small>{mins.toString().length < 2 ? '0' + mins : mins}</small>
+            <small>:</small>
+            <small>
+              {second.toString().length < 2 ? '0' + second : second}
+            </small>
+          </div>
+        )}
 
         <div className="call_menu">
           <button
@@ -91,23 +116,25 @@ const CallModal = () => {
             call_end
           </button>
 
-          <>
-            {call.video ? (
-              <button
-                className="material-icons text-success"
-                onClick={handleAnswer}
-              >
-                videocam
-              </button>
-            ) : (
-              <button
-                className="material-icons text-success"
-                onClick={handleAnswer}
-              >
-                call
-              </button>
-            )}
-          </>
+          {call.recipient === auth.user._id && !answer && (
+            <>
+              {call.video ? (
+                <button
+                  className="material-icons text-success"
+                  onClick={handleAnswer}
+                >
+                  videocam
+                </button>
+              ) : (
+                <button
+                  className="material-icons text-success"
+                  onClick={handleAnswer}
+                >
+                  call
+                </button>
+              )}
+            </>
+          )}
         </div>
       </div>
     </div>

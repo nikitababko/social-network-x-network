@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import io from 'socket.io-client';
+import Peer from 'peerjs';
 
 import PageRender from './customRouter/PageRender';
 import Home from './pages/home';
@@ -52,6 +53,18 @@ const App = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    const newPeer = new Peer(undefined, {
+      host: '/',
+      port: 3001,
+    });
+
+    dispatch({
+      type: GLOBALTYPES.PEER,
+      payload: newPeer,
+    });
+  }, [dispatch]);
 
   return (
     <Router>

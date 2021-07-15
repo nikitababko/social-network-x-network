@@ -1,8 +1,8 @@
 import { GLOBALTYPES } from '../actions/globalTypes';
 
-const callReducer = (state = null, action) => {
+const peerReducer = (state = null, action) => {
   switch (action.type) {
-    case GLOBALTYPES.CALL:
+    case GLOBALTYPES.PEER:
       return action.payload;
 
     default:
@@ -10,4 +10,4 @@ const callReducer = (state = null, action) => {
   }
 };
 
-export default callReducer;
+export default peerReducer;

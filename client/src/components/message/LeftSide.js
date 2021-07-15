@@ -131,7 +131,7 @@ const LeftSide = () => {
                 className={`message_user ${isActive(user)}`}
                 onClick={() => handleAddUser(user)}
               >
-                <UserCard user={user} msg={true}>
+                <UserCard user={user} message={true}>
                   {user.online ? (
                     <i className="fas fa-circle text-success" />
                   ) : (

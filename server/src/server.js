@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
+const { PeerServer } = require('peer');
+
 const SocketServer = require('./socketServer');
 
 // Setup app
@@ -17,10 +19,12 @@ app.use(cookieParser());
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 
-const users = [];
 io.on('connection', (socket) => {
   SocketServer(socket);
 });
+
+// Peer server
+PeerServer({ port: 3001, path: '/' });
 
 // Routes
 app.use('/api', require('./routes/authRouter'));
