@@ -113,6 +113,22 @@ const messageController = {
       return res.status(500).json({ message: error.message });
     }
   },
+
+  deleteConversation: async (req, res) => {
+    try {
+      const newConver = await Conversations.findOneAndDelete({
+        $or: [
+          { recipients: [req.user._id, req.params.id] },
+          { recipients: [req.params.id, req.user._id] },
+        ],
+      });
+      await Messages.deleteMany({ conversation: newConver._id });
+
+      res.json({ message: 'Delete Success!' });
+    } catch (error) {
+      return res.status(500).json({ message: error.message });
+    }
+  },
 };
 
 module.exports = messageController;

@@ -8,18 +8,9 @@ export const MESS_TYPES = {
   GET_MESSAGES: 'GET_MESSAGES',
   UPDATE_MESSAGES: 'UPDATE_MESSAGES',
   DELETE_MESSAGES: 'DELETE_MESSAGES',
+  DELETE_CONVERSATION: 'DELETE_CONVERSATION',
+  CHECK_ONLINE_OFFLINE: 'CHECK_ONLINE_OFFLINE',
 };
-
-export const addUser =
-  ({ user, message }) =>
-  async (dispatch) => {
-    if (message.users.every((item) => item._id !== user._id)) {
-      dispatch({
-        type: MESS_TYPES.ADD_USER,
-        payload: { ...user, text: '', media: [] },
-      });
-    }
-  };
 
 export const addMessage =
   ({ message, auth, socket }) =>
@@ -144,6 +135,20 @@ export const deleteMessages =
       dispatch({
         type: GLOBALTYPES.ALERT,
         payload: { error: error.response.data.message },
+      });
+    }
+  };
+
+export const deleteConversation =
+  ({ auth, id }) =>
+  async (dispatch) => {
+    dispatch({ type: MESS_TYPES.DELETE_CONVERSATION, payload: id });
+    try {
+      await deleteDataAPI(`conversation/${id}`, auth.token);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: { error: err.response.data.msg },
       });
     }
   };
