@@ -14,6 +14,10 @@
 
 - Added callmodal (audio/video button, timer)
 
+### [32b09e4](https://github.com/nikitababko/social-network-x-network/commit/32b09e43d16a8dc9fac6baee9d287c7a058e6eda)
+
+- Added ability: call realtime without stream (start call, end call, user busy)
+
 ## 2021-07-14
 
 ### [8ef5cc9](https://github.com/nikitababko/social-network-x-network/commit/8ef5cc924eb1e1e021d1a72a46b8fbcfd954ebc2)
