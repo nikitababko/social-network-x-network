@@ -5,6 +5,11 @@
 - Added ability: delete own messeges
 - Optimized: chat pagination
 
+### [9c1a795](https://github.com/nikitababko/social-network-x-network/commit/9c1a795a1265481b5d95498c63fb0555728f0c55)
+
+- Added ability: user status online/offline
+- Fix sockets: joinUser and disconnect
+
 ## 2021-07-14
 
 ### [8ef5cc9](https://github.com/nikitababko/social-network-x-network/commit/8ef5cc924eb1e1e021d1a72a46b8fbcfd954ebc2)
