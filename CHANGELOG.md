@@ -10,6 +10,10 @@
 - Added ability: user status online/offline
 - Fix sockets: joinUser and disconnect
 
+### [94d254e](https://github.com/nikitababko/social-network-x-network/commit/94d254e890ccffb226644800b09723ad6f028e29)
+
+- Added callmodal (audio/video button, timer)
+
 ## 2021-07-14
 
 ### [8ef5cc9](https://github.com/nikitababko/social-network-x-network/commit/8ef5cc924eb1e1e021d1a72a46b8fbcfd954ebc2)
