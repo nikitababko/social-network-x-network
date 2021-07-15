@@ -31,8 +31,6 @@ const notifyCtrl = {
         url: req.query.url,
       });
 
-      console.log({ notify });
-
       return res.json({ notify });
     } catch (error) {
       return res.status(500).json({ message: error.message });
