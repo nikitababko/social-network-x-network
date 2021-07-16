@@ -56,8 +56,8 @@ const App = () => {
 
   useEffect(() => {
     const newPeer = new Peer(undefined, {
-      host: '/',
-      port: 3001,
+      path: '/',
+      secure: true,
     });
 
     dispatch({
@@ -85,14 +85,8 @@ const App = () => {
             component={auth.token ? Home : Register}
           />
 
-          <div className="wrap_page">
-            <PrivateRouter exact path="/:page" component={PageRender} />
-            <PrivateRouter
-              exact
-              path="/:page/:id"
-              component={PageRender}
-            />
-          </div>
+          <PrivateRouter exact path="/:page" component={PageRender} />
+          <PrivateRouter exact path="/:page/:id" component={PageRender} />
         </div>
       </div>
     </Router>

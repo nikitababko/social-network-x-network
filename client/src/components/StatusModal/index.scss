@@ -140,6 +140,10 @@
           }
         }
       }
+
+      .dropdown-menu {
+        transform: translate3d(-153px, -190px, 0px) !important;
+      }
     }
   }
 }

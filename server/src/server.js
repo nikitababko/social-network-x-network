@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const morgan = require('morgan');
 const cookieParser = require('cookie-parser');
-const { PeerServer } = require('peer');
+const { ExpressPeerServer } = require('peer');
 
 const SocketServer = require('./socketServer');
 
@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
 });
 
 // Peer server
-PeerServer({ port: 3001, path: '/' });
+ExpressPeerServer(http, { path: '/' });
 
 // Routes
 app.use('/api', require('./routes/authRouter'));
@@ -49,6 +49,14 @@ mongoose.connect(
     console.log(`Data base has started on port: ${URI}`);
   }
 );
+
+// Heroku
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 // Setup server
 const PORT = process.env.PORT;

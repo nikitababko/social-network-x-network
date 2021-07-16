@@ -16,18 +16,20 @@ const Followers = ({ users, setShowFollowers }) => {
   return (
     <div className="follow">
       <div className="follow__box">
-        <h5>Followers</h5>
+        <h5 className="text-center">Followers</h5>
         <hr />
 
-        {users.map((user) => (
-          <UserCard
-            key={user._id}
-            user={user}
-            setShowFollowers={setShowFollowers}
-          >
-            {auth.user._id !== user._id && <FollowButton user={user} />}
-          </UserCard>
-        ))}
+        <div className="follow_content">
+          {users.map((user) => (
+            <UserCard
+              key={user._id}
+              user={user}
+              setShowFollowers={setShowFollowers}
+            >
+              {auth.user._id !== user._id && <FollowButton user={user} />}
+            </UserCard>
+          ))}
+        </div>
 
         <div className="follow__close" onClick={handleClose}>
           &times;

@@ -18,4 +18,8 @@
     color: blue;
     font-weight: 600;
   }
+
+  .dropdown-menu {
+    transform: translate3d(-120px, -200px, 0px) !important;
+  }
 }

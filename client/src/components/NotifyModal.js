@@ -38,7 +38,7 @@ const NotifyModal = () => {
   };
 
   return (
-    <div style={{ minWidth: '280px' }}>
+    <div style={{ minWidth: '300px' }}>
       <div className="d-flex justify-content-between align-items-center px-3">
         <h3>Notification</h3>
         {notify.sound ? (
@@ -82,11 +82,15 @@ const NotifyModal = () => {
                 )}
               </div>
 
-              <div style={{ width: '30px' }}>
-                {message.image && (
-                  <Avatar src={message.image} size="medium-avatar" />
-                )}
-              </div>
+              {message.image && (
+                <div style={{ width: '30px' }}>
+                  {message.image.match(/video/i) ? (
+                    <video src={message.image} width="100%" />
+                  ) : (
+                    <Avatar src={message.image} size="medium-avatar" />
+                  )}
+                </div>
+              )}
             </Link>
 
             <small className="text-muted d-flex justify-content-between px-2">
