@@ -1,3 +1,9 @@
+## 2021-07-16
+
+### [a592f3e](https://github.com/nikitababko/social-network-x-network/commit/a592f3e4407c747277f632e6d5756d0d41875aff)
+
+- Added ability: stream call
+
 ## 2021-07-15
 
 ### [b867134](https://github.com/nikitababko/social-network-x-network/commit/b867134eb70a5768f242232bf3b8f7372d71ddbc)
