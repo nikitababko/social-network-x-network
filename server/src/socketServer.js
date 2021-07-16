@@ -173,6 +173,7 @@ const SocketServer = (socket) => {
   });
 
   socket.on('endCall', (data) => {
+    console.log(data);
     const client = users.find((user) => user.id === data.sender);
 
     if (client) {

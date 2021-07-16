@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Avatar } from 'components';
 import { imageShow, videoShow } from 'utils/mediaShow';
 import { deleteMessages } from 'redux/actions/messageAction';
+import Times from './Times';
 
 const MessageDisplay = ({ user, message, theme, data }) => {
   const { auth } = useSelector((state) => state);
@@ -49,6 +50,41 @@ const MessageDisplay = ({ user, message, theme, data }) => {
             </div>
           ))}
         </div>
+
+        {message.call && (
+          <button
+            className="btn d-flex align-items-center py-3"
+            style={{ background: '#eee', borderRadius: '10px' }}
+          >
+            <span
+              className="material-icons font-weight-bold mr-1"
+              style={{
+                fontSize: '2.5rem',
+                color: message.call.times === 0 ? 'crimson' : 'green',
+                filter: theme ? 'invert(1)' : 'invert(0)',
+              }}
+            >
+              {message.call.times === 0
+                ? message.call.video
+                  ? 'videocam_off'
+                  : 'phone_disabled'
+                : message.call.video
+                ? 'video_camera_front'
+                : 'call'}
+            </span>
+
+            <div className="text-left">
+              <h6>{message.call.video ? 'Video Call' : 'Audio Call'}</h6>
+              <small>
+                {message.call.times > 0 ? (
+                  <Times total={message.call.times} />
+                ) : (
+                  new Date(message.createdAt).toLocaleTimeString()
+                )}
+              </small>
+            </div>
+          </button>
+        )}
       </div>
 
       <div className="chat_time">
