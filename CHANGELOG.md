@@ -14,6 +14,11 @@
 - Fix: no display styles for message component
 - Fix: reduced latency settimeout message pagination
 
+### [d0ab187](https://github.com/nikitababko/social-network-x-network/commit/d0ab187e644492e502fdefe8208c4ea3a4cce9e5)
+
+- Added: scroll on home page
+- Added: new styles
+
 ## 2021-07-15
 
 ### [b867134](https://github.com/nikitababko/social-network-x-network/commit/b867134eb70a5768f242232bf3b8f7372d71ddbc)
