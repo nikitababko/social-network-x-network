@@ -9,6 +9,11 @@
 - Added message after call success/failed
 - Added sound during a call
 
+### [d6d3e13](https://github.com/nikitababko/social-network-x-network/commit/d6d3e1390d39c76880b1c991e2637b2226baa208)
+
+- Fix: no display styles for message component
+- Fix: reduced latency settimeout message pagination
+
 ## 2021-07-15
 
 ### [b867134](https://github.com/nikitababko/social-network-x-network/commit/b867134eb70a5768f242232bf3b8f7372d71ddbc)
