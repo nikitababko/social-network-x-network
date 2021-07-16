@@ -131,7 +131,7 @@ const RightSide = () => {
             behavior: 'smooth',
             block: 'end',
           });
-        }, 2000);
+        }, 50);
       }
     };
     getMessagesData();
