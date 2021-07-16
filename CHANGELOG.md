@@ -4,6 +4,11 @@
 
 - Added ability: stream call
 
+### [fb6d357](https://github.com/nikitababko/social-network-x-network/commit/fb6d357ec655753285f67527cc315809822eebb4)
+
+- Added message after call success/failed
+- Added sound during a call
+
 ## 2021-07-15
 
 ### [b867134](https://github.com/nikitababko/social-network-x-network/commit/b867134eb70a5768f242232bf3b8f7372d71ddbc)
